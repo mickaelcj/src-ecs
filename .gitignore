@@ -1,3 +1,5 @@
+.vagrant/
+
 .env
 /public/bundles/
 /var/
@@ -34,3 +36,4 @@ node_modules/
 package.lock
 yarn.lock
 *.log
+Vagrantfile.debug

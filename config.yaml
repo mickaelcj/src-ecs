@@ -1,0 +1,9 @@
+configs:
+    os: "10.2"                       # Choose between 8.11 and 9.6 (change requires: vagrant destroy & vagrant up)
+    private_ip: "192.168.56.111"    # VM IP in your host-only-network
+    vmname: "ecoservice"   # VM name for Virtualbox
+    servername: "ecoservice.dev"         # Servername and domain for your projects
+    projectname: ecs
+    symfony_version: 5.1
+    app_env: dev
+    web_path: /vagrant/www
