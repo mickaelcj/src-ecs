@@ -1,30 +1,27 @@
 {
-    "monolog/monolog": {
-        "version": "2.x-dev"
-    },
     "php": {
         "version": "7.4"
     },
     "psr/cache": {
-        "version": "1.0.x-dev"
+        "version": "1.0.1"
     },
     "psr/container": {
-        "version": "1.0.x-dev"
+        "version": "1.0.0"
     },
     "psr/event-dispatcher": {
-        "version": "1.0.x-dev"
+        "version": "1.0.0"
     },
     "psr/log": {
-        "version": "1.1.x-dev"
+        "version": "1.1.2"
     },
     "symfony/cache": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/cache-contracts": {
-        "version": "2.0-dev"
+        "version": "v2.0.1"
     },
     "symfony/config": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/console": {
         "version": "4.4",
@@ -32,7 +29,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.4",
-            "ref": "59d8cc5a923274e552412fcd51e284bba02982de"
+            "ref": "fead3ab2e80622c61d13dac0d21a3430a45efae8"
         },
         "files": [
             "bin/console",
@@ -40,25 +37,25 @@
         ]
     },
     "symfony/dependency-injection": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/dotenv": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/error-handler": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/event-dispatcher": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/event-dispatcher-contracts": {
-        "version": "2.0-dev"
+        "version": "v2.0.1"
     },
     "symfony/filesystem": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/finder": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/flex": {
         "version": "1.0",
@@ -73,12 +70,12 @@
         ]
     },
     "symfony/framework-bundle": {
-        "version": "5.1",
+        "version": "4.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "5.1",
-            "ref": "57fb5b55003dee6c78b40ad4ca123541981eecd6"
+            "version": "4.4",
+            "ref": "23ecaccc551fe2f74baf613811ae529eb07762fa"
         },
         "files": [
             "config/bootstrap.php",
@@ -86,7 +83,6 @@
             "config/packages/framework.yaml",
             "config/packages/test/framework.yaml",
             "config/routes/dev/framework.yaml",
-            "config/secrets/prod/.gitignore",
             "config/services.yaml",
             "public/index.php",
             "src/Controller/.gitignore",
@@ -94,36 +90,22 @@
         ]
     },
     "symfony/http-foundation": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/http-kernel": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/mime": {
-        "version": "5.1-dev"
-    },
-    "symfony/monolog-bridge": {
-        "version": "5.1-dev"
-    },
-    "symfony/monolog-bundle": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "6240c6d43e8237a32452f057f81816820fd56ab6"
-        },
-        "files": [
-            "config/packages/dev/monolog.yaml",
-            "config/packages/prod/monolog.yaml",
-            "config/packages/test/monolog.yaml"
-        ]
+        "version": "v5.0.1"
     },
     "symfony/polyfill-intl-idn": {
-        "version": "1.13-dev"
+        "version": "v1.13.1"
     },
     "symfony/polyfill-mbstring": {
-        "version": "1.13-dev"
+        "version": "v1.13.1"
+    },
+    "symfony/polyfill-php73": {
+        "version": "v1.13.1"
     },
     "symfony/routing": {
         "version": "4.2",
@@ -140,15 +122,15 @@
         ]
     },
     "symfony/service-contracts": {
-        "version": "2.0-dev"
+        "version": "v2.0.1"
     },
     "symfony/var-dumper": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/var-exporter": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     },
     "symfony/yaml": {
-        "version": "5.1-dev"
+        "version": "v5.0.1"
     }
 }

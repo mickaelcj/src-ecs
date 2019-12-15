@@ -1,0 +1,13 @@
+{
+	"fonts": [{
+			"family": "Poppins",
+			"variants": ["300", "400"]
+		},
+		{
+			"family": "Gelasio",
+			"variants": ["400", "600", "700"]
+		}
+	],
+	"path:": "/assets/fonts/",
+	"filename": "fonts.css"
+}
