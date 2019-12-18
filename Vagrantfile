@@ -46,10 +46,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :private_network, ip: conf['private_ip']
   
   $init = <<-SCRIPT
-  echo [Init ansible and the playbook];
-  sudo apt -y install git;
-  git clone #{playbook} /tmp/#{playbook_name};
-  /bin/sh /tmp/#{playbook_name}/tools/install.sh;
+    echo [Init ansible and the playbook];
+    sudo apt -y install git;
+    git clone #{playbook} /tmp/#{playbook_name};
+    /bin/sh /tmp/#{playbook_name}/tools/install.sh;
   SCRIPT
 
   if folder == '/tmp'
@@ -62,14 +62,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.become = true
       ansible.verbose = ""
       ansible.extra_vars = {
-        servername: conf['servername'],
-        projectname: conf['projectname'],
-        testing_mode:  conf['testing_mode'], 
-        ansible_host: conf['private_ip'],
-        app_env: conf['app_env'],
-        web_path: conf['web_path'],
-        nfs: NFS
-    }
+          servername: conf['servername'],
+          projectname: conf['projectname'],
+          testing_mode:  conf['testing_mode'],
+          ansible_host: conf['private_ip'],
+          app_env: conf['app_env'],
+          web_path: conf['web_path'],
+          nfs: NFS
+      }
   end
 
   # FOR LINUX / MAC : uncomment after provision
