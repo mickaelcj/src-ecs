@@ -1,87 +1,3 @@
-.vagrant/
-
-.env
-/public/bundles/
-/var/
-/vendor/**
-vendor/
-###< symfony/framework-bundle ###
-
-###> symfony/webpack-encore-pack ###
-/node_modules/
-/public/build/
-composer.lock
-###< symfony/webpack-encore-pack ###
-
-###> symfony/phpunit-bridge ###
-.phpunit
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-
-###> symfony/web-server-bundle ###
-.web-server-pid
-###< symfony/web-server-bundle ###
-
-###< IDE specific ###
-.idea/*
-!webServers.xml
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/sftp.json
-!.vscode/extensions.json
-*.code-workspace
-.vs/
-
-###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/public/bundles/
-/var/
-/vendor/
-###< symfony/framework-bundle ###
-
-###< npm ###
-node_modules/
-package.lock
-yarn.lock
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-*.tgz
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-
-# ecs specific
-*_debug*
-*playbook*/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcaches
-
-# TypeScript v1 declaration files
-typings/
-
-# TypeScript cache
-*.tsbuildinfo
-
-## env
-.env
-.env.test
-
-# Nuxt.js build / generate output
-.nuxt
-dist
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-
 # Apple env files
 *.DS_Store
 .AppleDouble
@@ -92,3 +8,7 @@ dist
 
 # Windows shortcuts
 *.lnk
+
+# ecs specific
+*_debug*
+*playbook*/
