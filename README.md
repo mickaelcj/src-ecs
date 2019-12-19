@@ -1,4 +1,4 @@
-# Documentation ecoservice
+# Ecoservice
 ## Installation
 - Ajouter sa clé ssh sur **Github**: [doc ici](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
 - Lancer la VM avec `vagrant up`

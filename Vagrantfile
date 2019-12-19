@@ -16,7 +16,9 @@ playbook       = "https://github.com/g4-dev/#{playbook_name}.git"
 debug_folder   = '/vagrant'
 normal_folder  = '/tmp'
 # let's init the playbook folder 
-folder         = debug_folder
+folder         = normal_folder
+
+## Boost vmname
 
 # Vagrantfile API/syntax version.
 VAGRANTFILE_API_VERSION = "2"
@@ -35,18 +37,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider "virtualbox" do |vb|
-      vb.gui = false
-      vb.customize ['modifyvm', :id, '--memory', 2048]
-      vb.customize ["modifyvm", :id, "--cpus", 2]
       vb.customize ["modifyvm", :id, "--name", conf['vmname']]
+      vb.customize ['modifyvm', :id, '--memory', 3072]
+      vb.customize ["modifyvm", :id, "--cpus", 2]
+      vb.customize ["modifyvm", :id, "--cpuexecutioncap", 65]
+      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+      vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
   config.vm.network "forwarded_port", guest: 80, host: 81
+  #config.vm.network "forwarded_port", guest: 9000, host: 90
   config.vm.hostname = conf['servername']
   config.vm.network :private_network, ip: conf['private_ip']
-  
-  $init ='sudo apt -y install git && git clone #{playbook} /tmp/#{playbook_name} && /bin/sh /tmp/#{playbook_name}/tools/install.sh'
 
+  $init = <<-SCRIPT
+  sudo apt -y install git;
+  git clone #{playbook} /tmp/#{playbook_name};
+  /bin/sh /tmp/#{playbook_name}/tools/install.sh;
+  SCRIPT
+  
   if folder == '/tmp'
     config.vm.provision "shell", inline: $init, privileged: false
   end

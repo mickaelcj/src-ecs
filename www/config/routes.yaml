@@ -1,3 +1,12 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+front_office:
+   path: /
+   controller: App\Controller\DefaultController::index
+
+back_office:
+   path: /
+   controller: App\Controller\DefaultController::index
+
+# useful no error page listing
+# blog_list:
+#     path:       /blog/{page<\d+>?1}
+#     controller: App\Controller\BlogController::list
