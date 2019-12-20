@@ -1,9 +1,17 @@
 configs:
     os: "10.2"                      # Choose between 8.11 and 9.6 (change requires: vagrant destroy & vagrant up)
     private_ip: "192.168.56.111"    # VM IP in your host-only-network
-    vmname: ecoservice   # VM name for Virtualbox
     servername: ecoservice.dev         # Servername and domain for your projects
     projectname: ecs
     testing_mode: 0
     web_path: www
     app_env: dev
+
+vm:
+    name: ecoservice   # 
+    memory: 3072
+    cpus: 2
+    cpuexecutioncap: 75 #pourcentage du CPU donné
+    natdnshostresolver1: on # (perf +)
+    natdnsproxy1: on # (perf +)
+    ioapic: on

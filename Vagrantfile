@@ -4,7 +4,7 @@
 require 'yaml'
 
 current_dir    = File.dirname(File.expand_path(__FILE__))
-conf           = YAML.load_file("#{current_dir}/config.yaml")['configs']
+conf           = YAML.load_file("#{current_dir}/config.yaml")
 NFS            = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux?
 os             = "bento/debian-" + conf['os']
 playbook_name  = "playbook-#{conf['projectname']}"
@@ -40,10 +40,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--name", conf['vmname']]
       vb.customize ['modifyvm', :id, '--memory', 3072]
       vb.customize ["modifyvm", :id, "--cpus", 2]
-      vb.customize ["modifyvm", :id, "--cpuexecutioncap", 65]
+      vb.customize ["modifyvm", :id, "--cpuexecutioncap", 75]
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       vb.customize ["modifyvm", :id, "--ioapic", "on"]
+
+      conf.vm.each do |key, param|
+        puts "The current array item is: #{item}, #{key}"
+        vb.customize ["modifyvm", :id, "--#{key}", param]
+      end
+
   end
 
   config.vm.network "forwarded_port", guest: 80, host: 81
@@ -67,12 +73,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.become = true
       ansible.verbose = ""
       ansible.extra_vars = {
-          servername: conf['servername'],
-          projectname: conf['projectname'],
-          testing_mode:  conf['testing_mode'],
-          ansible_host: conf['private_ip'],
-          app_env: conf['app_env'],
-          web_path: conf['web_path'],
+          servername: conf.servername,
+          projectname: conf.projectname,
+          testing_mode:  conf.testing_mode,
+          ansible_host: conf.private_ip,
+          app_env: conf.app_env,
+          web_path: conf.web_path,
           nfs: NFS || folder == debug_folder # don't clean ansible after vm provision
       }
   end

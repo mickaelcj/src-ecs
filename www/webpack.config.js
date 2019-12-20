@@ -1,6 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
 const path = require('path');
-const webpack = require('webpack');
 const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin");
 const fontsConf = require('./fonts.json');
 

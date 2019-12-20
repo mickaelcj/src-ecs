@@ -1,18 +1,23 @@
 {
     "compilerOptions": {
-      "target": "es5",
+      "allowSyntheticDefaultImports": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
       "module": "es6",
       "moduleResolution": "node",
+      "noImplicitReturns": true,
       "declaration": false,
-      "noImplicitAny": false,
       "sourceMap": true,
       "noLib": false,
-      "suppressImplicitAnyIndexErrors": true
+      "strict": true,
+      "suppressImplicitAnyIndexErrors": true,
+      "target": "es5"
     },
     "types": ["jest"],
     "compileOnSave": false,
+    "include": ["./src/**/*.ts"], 
     "exclude": [
-      "build/", 
+      "**/build/", 
       "node_modules", 
       "**/*.spec.ts"
     ]

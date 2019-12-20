@@ -6,7 +6,7 @@ module.exports = (space) => ({
   runner: 'jest-runner-tsc',
   displayName: 'tsc',
   moduleFileExtensions: ['js', 'ts'],
-  testMatch: ['<rootDir>/test/*.ts'],
+  //testMatch: ['<rootDir>/**/test/*.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1'
   },
