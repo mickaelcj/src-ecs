@@ -2,11 +2,11 @@
 /**
  * @copyright Ecoservice, 2019
  */
-namespace Apps\Cms;
+namespace Apps\FrontOffice;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class CmsBundle extends Bundle
+class FrontOfficeBundle extends Bundle
 {
 
 }

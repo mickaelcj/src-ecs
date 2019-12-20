@@ -1,0 +1,1 @@
+require ("tests/main_test.js")

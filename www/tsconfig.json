@@ -9,8 +9,11 @@
       "noLib": false,
       "suppressImplicitAnyIndexErrors": true
     },
+    "types": ["jest"],
     "compileOnSave": false,
     "exclude": [
-      "node_modules"
+      "build/", 
+      "node_modules", 
+      "**/*.spec.ts"
     ]
   }
