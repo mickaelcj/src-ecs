@@ -1,11 +1,6 @@
 # Ecoservice
-## Installation
-- Ajouter sa clé ssh sur **Github**: [doc ici](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
-- Lancer la VM avec `vagrant up`
 
-> Un script assez long va se charger d'installer tous les outils et de configurer l'environment du projet<br>
-> Pour en savoir plus : [Doc Ansible](https://docs.ansible.com/)
-
+- `vagrant up`
 - Si tout s'est bien passé : `vagrant ssh`<br>
 ### Sur votre VM le projet miroir se trouve à `/data/ecs/www`
 ### Sur votre navigateur : [localhost:81](http://localhost:81)
