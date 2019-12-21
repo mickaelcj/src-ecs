@@ -8,8 +8,8 @@
 
 ## [2 - Stack de développement](2Stack.md)
 
-## [4 - Git Flow](GitFlow.md)
+## [3 - Git Flow](GitFlow.md)
 
 ## [4 - Tests](4Tests.md)
 
-## [5 - Tips](5Tips.md)
+## [5 - Astuces](5Tips.md)

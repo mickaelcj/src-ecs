@@ -1,3 +1,7 @@
+<span style="float:left">[&larr; retour à **l'installation**](1Installation.md)</span>   <span style="float:right">[**GitFlow** &rarr;](0GitFlow.md)</span>
+<br>
+<br>
+
 # Bonnes pratiques
 
 ## ***ATTENTION*** (tout le monde): 
@@ -21,7 +25,11 @@ doivent être éxecutées ***SEULEMENT DANS LA VM***. En voici quelques unes :
 Pour télécharger un fichier et ses mises à jours sur la remote (vm) un simple clic droit (`deployment > download` sur php-storm)
 
 ## **Stack Front-end** : 
-Absolument Lire [**cette page**](https://github.com/ryanmcdermott/clean-code-javascript#introduction)
+Pour la convention de code javascript, suivre [**cette page**](https://github.com/ryanmcdermott/clean-code-javascript#introduction)
+
 ## **Stack Back-end** : 
 
 Documentation poussée sur les fonctionnalités de php : [**ici**](https://phptherightway.com/)
+
+---
+### <center>[Retour au sommaire &#8617;](docs/0Sommaire.md)</center>

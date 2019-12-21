@@ -1,15 +1,12 @@
+<span style="float:left">[&larr; retour au **Sommaire**](0Sommaire.md)</span>   <span style="float:right" title="Installation">[**Stacks et bonnes pratiques** &rarr;](2Stack)</span>
+<br>
+<br>
+
 # 1. initialisation du projet
 
-### Le nom de domaine
-Il est intéressant de dissocier les url de projet et donc pour cela on peut utiliser le domaine personnalisé :
-[**ecoservice.dev**](https://ecoservice.dev) <br>
-Pour utiliser ce domaine on peut ajouter manuellement [**ce certificat**](full_certificat.pfx) dans notre navigateur.<br><br>
-
-**Tuto** : (FF ou Chrome) > `paramètres` > rechercher `ssl` > Gérér les certificats > Importer le fichier [`.pfx`](cert/full.pfx) ou [`pem`](cert/certificat.pem)
-
-> Si erreur `scp -P 22 vagrant@ecoservice.dev:/etc/ssl/ecoservice.dev/pkcs12.pfx docs/cert/` (mdp: vagrant)
----
-Sinon on peut toujours se contenter de [localhost:81](http://localhost:81)
+### Requis
+- vagrant 2.2.+
+- VirtualBox 6.0.8
 
 ## Installation et lancement de la vm
 
@@ -21,6 +18,16 @@ Sinon on peut toujours se contenter de [localhost:81](http://localhost:81)
 
 - Après `vagrant ssh` | Consulter la liste des commandes shells : [Ici](5Tips)
 - [localhost:81](http://localhost:81)
+
+### Le nom de domaine
+Il est intéressant de dissocier les url de projet et donc pour cela on peut utiliser le domaine personnalisé :
+[**ecoservice.dev**](https://ecoservice.dev) <br>
+Pour utiliser ce domaine on peut ajouter manuellement [**ce certificat**](full_certificat.pfx) dans notre navigateur.<br><br>
+
+**Tuto** : (FF ou Chrome) > `paramètres` > rechercher `ssl` > Gérér les certificats > Importer le fichier [`.pfx`](cert/full.pfx) ou [`pem`](cert/certificat.pem)
+
+---
+Sinon on peut toujours se contenter de [localhost:81](http://localhost:81)
 
 ## Base de donnée
 Cette base de donnée est hébergée à distance afin que l'on puisse travailler avec les mêmes datas
@@ -36,9 +43,15 @@ Le NFS est un système de partage de fichier haute performance compatible avec L
 
 #### Pour activer sur Windows :
 - Activer `client NFS` > `Activer fonctionnalités Windows`
-- changer la variable winNFS [config.yml](../config.yaml)
+- Allouer plus de CPU et passer la variable winNFS à true dans [config.yml](../config.yaml)
 
 #### Sur mac
 - Donner l'accès complès au disque pour le terminal dans `sécurité & confidentialité`
 
 Petite amélioration de performance avec : `git config core.preloadindex true`
+
+### Erreurs connues
+Le certificat n'est toujours pas bon, pour récupérer le bon :
+> Si erreur `scp -P 22 vagrant@ecoservice.dev:/etc/ssl/ecoservice.dev/pkcs12.pfx docs/cert/` (mdp: vagrant)
+---
+### <center>[Retour au sommaire &#8617;](docs/0Sommaire.md)</center>

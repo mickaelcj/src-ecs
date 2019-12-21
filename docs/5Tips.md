@@ -1,3 +1,7 @@
+<span style="float:left">[&larr; retour aux **tests**](4Tests.md)</span>   <span style="float:right">[**Sommaire** &rarr;](0Sommaire.md)</span>
+<br>
+<br>
+
 # Trucs et astuces
 
 ### Sur le terminal de la VM
@@ -47,3 +51,5 @@ curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fi
 fish
 fisher add hauleth/agnoster
 ```
+---
+### <center>[Retour au sommaire &#8617;](docs/0Sommaire.md)</center>

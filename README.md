@@ -1,7 +1,6 @@
 # Ecoservice
 
-- `vagrant up`
-- Si tout s'est bien passé : `vagrant ssh`<br>
+## [Lire la documentation !](docs/0Sommaire.md)
 
 ### Sur votre VM le projet miroir se trouve à `/data/ecs/www`
 ### Sur votre navigateur : 
