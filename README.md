@@ -2,8 +2,11 @@
 
 - `vagrant up`
 - Si tout s'est bien passé : `vagrant ssh`<br>
+
 ### Sur votre VM le projet miroir se trouve à `/data/ecs/www`
-### Sur votre navigateur : [localhost:81](http://localhost:81)
+### Sur votre navigateur : 
+- [ecoservice.dev](http://ecoservice.dev) &rarr; Besoin d'un certificat : [doc ici](1Installation.md#)
+- [localhost:81](http://localhost:81)
 
 ## Base de donnée
 

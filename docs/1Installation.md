@@ -5,7 +5,7 @@ Il est intéressant de dissocier les url de projet et donc pour cela on peut uti
 [**ecoservice.dev**](https://ecoservice.dev) <br>
 Pour utiliser ce domaine on peut ajouter manuellement [**ce certificat**](full_certificat.pfx) dans notre navigateur.<br><br>
 
-**Tuto** : (FF ou Chrome) > `paramètres` > rechercher `ssl` > Gérér les certificats > Importer le fichier `.pfx`
+**Tuto** : (FF ou Chrome) > `paramètres` > rechercher `ssl` > Gérér les certificats > Importer le fichier [`.pfx`](cert/full.pfx) ou [`pem`](cert/certificat.pem)
 
 > Si erreur `scp -P 22 vagrant@ecoservice.dev:/etc/ssl/ecoservice.dev/pkcs12.pfx docs/cert/` (mdp: vagrant)
 ---
@@ -18,6 +18,9 @@ Sinon on peut toujours se contenter de [localhost:81](http://localhost:81)
 
 > Un script assez long va se charger d'installer tous les outils et de configurer l'environment du projet<br>
 > Pour en savoir plus : [Doc Ansible](https://docs.ansible.com/)
+
+- `vagrant ssh`
+- [localhost:81](http://localhost:81)
 
 # NFS (mac / linux)
 `git config core.preloadindex true`
