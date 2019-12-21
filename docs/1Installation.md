@@ -19,8 +19,26 @@ Sinon on peut toujours se contenter de [localhost:81](http://localhost:81)
 > Un script assez long va se charger d'installer tous les outils et de configurer l'environment du projet<br>
 > Pour en savoir plus : [Doc Ansible](https://docs.ansible.com/)
 
-- `vagrant ssh`
+- Après `vagrant ssh` | Consulter la liste des commandes shells : [Ici](5Tips)
 - [localhost:81](http://localhost:81)
 
-# NFS (mac / linux)
-`git config core.preloadindex true`
+## Base de donnée
+Cette base de donnée est hébergée à distance afin que l'on puisse travailler avec les mêmes datas
+
+- mysql_host: `remotemysql.com`
+- mysql_user: `EmwnLitSLR`
+- mysql_pw: `Gk0qCm6hFI`
+- mysql_db: `eEmwnLitSLR`
+### [**lien vers Phpmyadmin**](https://remotemysql.com/phpmyadmin/index.php) 
+
+# NFS
+Le NFS est un système de partage de fichier haute performance compatible avec Linux et Mac et à peu près Windows<br>
+
+#### Pour activer sur Windows :
+- Activer `client NFS` > `Activer fonctionnalités Windows`
+- changer la variable winNFS [config.yml](../config.yaml)
+
+#### Sur mac
+- Donner l'accès complès au disque pour le terminal dans `sécurité & confidentialité`
+
+Petite amélioration de performance avec : `git config core.preloadindex true`

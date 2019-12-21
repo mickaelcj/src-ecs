@@ -3,7 +3,8 @@
 ### Sur le terminal de la VM
 Le shell est un `bash` classique qui est toutefois un peu tuner.
 
-#### Voici une liste de commandes shell
+## Voici une liste de commandes shell
+
 `h` &rarr; pour chercher dans son historique de commandes<br>
 `la` &rarr; Afficher les fichiers cachés<br>
 `folders` &rarr; Voir la taille des fichiers<br>
@@ -24,6 +25,7 @@ Le shell est un `bash` classique qui est toutefois un peu tuner.
 `yw` &rarr; `yarn watch` <br>
 `yd` &rarr; `yarn dev`<br>
 `yi` &rarr; `yarn add` <br>
+`yt` &rarr; `yarn test` <br>
 
 ### Shell de l'hôte (conseil)
 - [Installer Cygwin](https://www.cygwin.com/) pour windows
@@ -37,6 +39,7 @@ Redémarrez votre shell et puis laisser la magie opérer en écrivant la command
 
 ### Bonus : 
 Installez la police [Fira Code](https://github.com/tonsky/FiraCode/releases/download/1.206/FiraCode_1.206.zip) en faisant `clic droit` > `paramètres` sur votre shell
+Vous pouvez l'installer
 
 Puis :
 ```

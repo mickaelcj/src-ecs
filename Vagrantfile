@@ -6,7 +6,9 @@ require 'yaml'
 current_dir    = File.dirname(File.expand_path(__FILE__))
 yml = YAML.load_file("#{current_dir}/config.yaml")
 conf, vm =  yml['conf'], yml['vm']
-conf['nfs'], NFS = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux?
+# If you're on a new build of Windows 10 you can try to use NFS
+winNFS = Vagrant::Util::Platform.windows? && conf['winNFS']
+conf['nfs'], NFS = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux? || winNFS
 os             = "bento/debian-" + conf['os']
 # book repo
 playbook_name  = "playbook-#{conf['projectname']}"
@@ -34,6 +36,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # NFS FOR LINUX & MAC : faster
     config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs",
     nfs_udp: "false", mount_options: ['rw', 'vers=3', 'tcp', 'fsc']
+  elsif winNFS
+    config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", mount_options: ['dmode=775','fmode=664']
   else
     # disable default shared folder
     config.vm.synced_folder ".", "/vagrant", disabled: true
