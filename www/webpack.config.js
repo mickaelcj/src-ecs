@@ -1,6 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
 const path = require('path');
-const webpack = require('webpack');
 const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin");
 const fontsConf = require('./fonts.json');
 
@@ -22,7 +21,7 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     .enableTypeScriptLoader()
-    // enables Sass/SCSS support
+
     .enableSassLoader()
 
     .addPlugin(new GoogleFontsPlugin(fontsConf))
@@ -31,8 +30,8 @@ Encore
 let config = Encore.getWebpackConfig();
 config.resolve.alias = {
     ...config.resolve.alias, ...{
-        '@': path.resolve(__dirname, './assets/ts'),
-        '#': path.resolve(__dirname, './assets/scss'),
+        '@': path.resolve(__dirname, 'assets/ts'),
+        '#': path.resolve(__dirname, 'assets/scss'),
     },
     ...config.resolve.extensions.push('.scss')
 };
