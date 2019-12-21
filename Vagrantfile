@@ -17,7 +17,7 @@ playbook       = "https://github.com/#{conf['org']}/#{playbook_name}.git"
 ### work path variable to change in debug mode
 # Be aware of shared folders when deleting things
 # use `/vagrant` for debug ansible playbook and `/tmp` for common init
-debug          = true
+debug          = conf['debug_playbook']
 folder         = debug ? '/vagrant' : '/tmp'
 
 # Vagrantfile API/syntax version.
@@ -29,7 +29,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = false
   config.ssh.forward_agent = true
 
-  if File.exist?("#{current_dir}/.vagrant/machines/#{vm['name']}/virtualbox/action_provision")
     if debug
       # shared folder to get the playbook to test 
       config.vm.synced_folder ".", "#{folder}", owner:'vagrant', group: 'vagrant'
@@ -49,9 +48,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           vb.customize ["modifyvm", :id, "--#{name}", param]
         end
     end
-  elsif
-    config.vm.provision :reload 
-  end
 
   config.vm.network "forwarded_port", guest: 80, host: 81
   #config.vm.network "forwarded_port", guest: 9000, host: 90

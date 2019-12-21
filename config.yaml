@@ -5,6 +5,7 @@ conf:
     servername: ecoservice.dev      # Servername and domain for your projects
     org: g4-dev                     # Organisation hosting repo
     projectname: ecs                # repo name : src-{{projectname}}
+    debug_playbook: true            # use to Reprovision VM with the local test playbook
     testing_mode: 0                 # test service
     web_path: www                   # use your own folder
     app_env: dev                    # prod or dev (prod is faster)
