@@ -1,8 +1,6 @@
 # Sommaire ecs
 
-<span style="float:left">[&larr; retour au **README**](../README.md)</span>   <span style="float:right" title="Installation">[**Commencer** &rarr;](1installation)</span>
-<br>
-<br>
+<span style="text-align:left;">[&larr; retour au **README**](../README.md)</span>
 
 ## [1 - Installation](1Installation.md)
 

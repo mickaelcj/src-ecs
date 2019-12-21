@@ -1,6 +1,4 @@
-<span style="float:left">[&larr; retour au **Git flow**](0Sommaire.md)</span>   <span style="float:right">[**Astuces** &rarr;](5Tips)</span>
-<br>
-<br>
+[&larr; retour au **Git flow**](0Sommaire.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**Astuces** &rarr;](5Tips)
 
 # Intégration continue et tests
 

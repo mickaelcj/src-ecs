@@ -12,5 +12,3 @@
 
 - Sur VSCode il faut installer l'extension `SFTP` de lixmomo 
 
-> Normalement devrait s'appliquées automatiquement sinon c'est chaud
-

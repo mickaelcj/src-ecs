@@ -1,8 +1,9 @@
-<span style="float:left">[&larr; retour à **l'installation**](1Installation.md)</span>   <span style="float:right">[**GitFlow** &rarr;](0GitFlow.md)</span>
-<br>
-<br>
+[&larr; retour à **l'installation**](1Installation.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**GitFlow** &rarr;](0GitFlow.md)
 
 # Bonnes pratiques
+## Sftp
+> Ne concerne pas ceux qui ont le NFS activé
+Pour assurer la mise à jour sur la VM des fichiers ils vous faudra l'extension `sftp` de lixmomo
 
 ## ***ATTENTION*** (tout le monde): 
 
@@ -22,7 +23,8 @@ doivent être éxecutées ***SEULEMENT DANS LA VM***. En voici quelques unes :
 - le `package.json` de la VM pour les module js (yarn)
 - le `composer.json` pour les modules php composer
 
-Pour télécharger un fichier et ses mises à jours sur la remote (vm) un simple clic droit (`deployment > download` sur php-storm)
+Après un changement de branche il faut upload vos sources : <br> 
+Un simple clic droit donnera des options de synchro (`deployment > download` sur php-storm)
 
 ## **Stack Front-end** : 
 Pour la convention de code javascript, suivre [**cette page**](https://github.com/ryanmcdermott/clean-code-javascript#introduction)

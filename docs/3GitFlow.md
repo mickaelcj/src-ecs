@@ -1,3 +1,5 @@
+[&larr; retour à la Stack**](2Stack.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**Tests** &rarr;](4Tests.md)
+
 # Notre git flow
 
 ## Introduction

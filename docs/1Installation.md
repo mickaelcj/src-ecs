@@ -1,6 +1,4 @@
-<span style="float:left">[&larr; retour au **Sommaire**](0Sommaire.md)</span>   <span style="float:right" title="Installation">[**Stacks et bonnes pratiques** &rarr;](2Stack)</span>
-<br>
-<br>
+[&larr; retour au **Sommaire**](0Sommaire.md) &nbsp;&nbsp;| &nbsp;&nbsp;[**Stacks et bonnes pratiques** &rarr;](2Stack.md)
 
 # 1. initialisation du projet
 

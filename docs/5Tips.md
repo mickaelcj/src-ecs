@@ -1,6 +1,4 @@
-<span style="float:left">[&larr; retour aux **tests**](4Tests.md)</span>   <span style="float:right">[**Sommaire** &rarr;](0Sommaire.md)</span>
-<br>
-<br>
+[&larr; retour aux **tests**](4Tests.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**Sommaire** &rarr;](0Sommaire.md)
 
 # Trucs et astuces
 

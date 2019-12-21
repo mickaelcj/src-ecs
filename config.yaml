@@ -7,8 +7,9 @@ conf:
     projectname: ecs                # repo name : src-{{projectname}}
     testing_mode: 0                 # test service
     web_path: www                   # use your own folder
-    app_env: dev                    # prod or dev
-    winNFS: false                   # Enable if you're sure NFS is available and enabled
+    app_env: dev                    # prod or dev (prod is faster)
+    winNFS: false                   # Enable if you're sure NFS is available and enabled on your windows 10
+
 vm:  
     name: ecoservice                # VM name for Virtualbox
     memory: 3072
