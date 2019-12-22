@@ -1,10 +1,10 @@
 front_office:
    path: /
-   controller: App\Controller\DefaultController::index
+   controller: Apps\FrontOffice\DefaultController:index
 
 back_office:
-   path: /
-   controller: App\Controller\DefaultController::index
+   path: /wp-admin
+   controller: Apps\BackOffice\Controller\DefaultController:index
 
 # useful no error page listing
 # blog_list:

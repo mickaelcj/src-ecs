@@ -29,24 +29,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = false
   config.ssh.forward_agent = true
 
-  if debug
-    # shared folder to get the playbook to test 
-    config.vm.synced_folder ".", "#{folder}", owner:'vagrant', group: 'vagrant'
-  elsif NFS && !File.exist?(".vagrant/machines/#{vm['name']}/virtualbox/action_provision")
-    # NFS FOR LINUX & MAC : faster
-    config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs",
-    nfs_udp: "false", mount_options: ['rw', 'vers=3', 'tcp', 'fsc']
-  elsif winNFS
-    config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", mount_options: ['dmode=775','fmode=664']
-  else
-    # disable default shared folder
-    config.vm.synced_folder ".", "/vagrant", disabled: true
-  end
+  if File.exist?("#{current_dir}/.vagrant/machines/#{vm['name']}/virtualbox/action_provision")
+    if debug
+      # shared folder to get the playbook to test 
+      config.vm.synced_folder ".", "#{folder}", owner:'vagrant', group: 'vagrant'
+    elsif NFS 
+      # NFS FOR LINUX & MAC : faster
+      config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", after: :provision,
+      nfs_udp: "false", mount_options: ['rw', 'vers=3', 'tcp', 'fsc']
+    elsif winNFS
+      config.vm.synced_folder "./www", "/data/ecs/www", after: :provision,  type: "nfs", mount_options: ['dmode=775','fmode=664']
+    else
+      # disable default shared folder
+      config.vm.synced_folder ".", "/vagrant", disabled: true
+    end
 
-  config.vm.provider "virtualbox" do |vb|
-      vm.each do |name, param|
-        vb.customize ["modifyvm", :id, "--#{name}", param]
-      end
+    config.vm.provider "virtualbox" do |vb|
+        vm.each do |name, param|
+          vb.customize ["modifyvm", :id, "--#{name}", param]
+        end
+    end
+  elsif
+    config.vm.provision :reload 
   end
 
   config.vm.network "forwarded_port", guest: 80, host: 81
@@ -72,3 +76,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.extra_vars = conf
   end
 end
+
+
+# && !

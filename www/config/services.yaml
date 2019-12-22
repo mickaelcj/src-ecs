@@ -15,6 +15,7 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:               # defines the scalar arguments once and apply them to any service defined/created in this file
+            $projectDir: '%kernel.project_dir%' 
             $locales: '%app_locales%'
             $defaultLocale: '%locale%'
             $emailSender: '%app.notifications.email_sender%'
@@ -24,13 +25,12 @@ services:
     Apps\:
         resource: '../src/Apps/*'
         exclude: '../src/Apps/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
-        tags: ['controller.service_arguments']
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    Apps\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+    # # controllers are imported separately to make sure services can be injected
+    # # as action arguments even if you don't extend any base controller class
+    # Apps\Controller\:
+    #     resource: '../src/Controller'
+    #     tags: ['controller.service_arguments']
     
     # Ecs\Security:
     #     resource: '../src/Security/*'
