@@ -7,8 +7,7 @@ current_dir    = File.dirname(File.expand_path(__FILE__))
 yml = YAML.load_file("#{current_dir}/config.yaml")
 conf, vm =  yml['conf'], yml['vm']
 # If you're on a new build of Windows 10 you can try to use NFS
-winNFS = Vagrant::Util::Platform.windows? && conf['winNFS']
-conf['nfs'], NFS = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux? || winNFS
+conf['nfs'], NFS = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux?
 os             = "bento/debian-" + conf['os']
 # book repo
 playbook_name  = "playbook-#{conf['projectname']}"
@@ -29,6 +28,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = false
   config.ssh.forward_agent = true
 
+  
+
+  # reload nfs / shared folder after provision
+  if File.exist?(".vagrant/machines/default/virtualbox/action_provision") && !debug
     if debug
       # shared folder to get the playbook to test 
       config.vm.synced_folder ".", "#{folder}", owner:'vagrant', group: 'vagrant'
@@ -36,21 +39,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       # NFS FOR LINUX & MAC : faster
       config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", after: :provision,
       nfs_udp: "false", mount_options: ['rw', 'vers=3', 'tcp', 'fsc']
-    elsif winNFS
-      config.vm.synced_folder "./www", "/data/ecs/www", after: :provision,  type: "nfs", mount_options: ['dmode=775','fmode=664']
-    else
       # disable default shared folder
       config.vm.synced_folder ".", "/vagrant", disabled: true
     end
-
-    config.vm.provider "virtualbox" do |vb|
-        vm.each do |name, param|
-          vb.customize ["modifyvm", :id, "--#{name}", param]
-        end
+  else
+    config.trigger.after [:provision] do |t|
+      t.name = "Reboot after provisioning"
+      t.run = { :inline => "vagrant reload" }
     end
+  end
+
+  config.vm.provider "virtualbox" do |vb|
+      vm.each do |name, param|
+        vb.customize ["modifyvm", :id, "--#{name}", param]
+      end
+  end
 
   config.vm.network "forwarded_port", guest: 80, host: 81
-  #config.vm.network "forwarded_port", guest: 9000, host: 90
+
   config.vm.hostname = conf['servername']
   config.vm.network :private_network, ip: conf['private_ip']
 

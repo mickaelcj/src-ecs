@@ -9,13 +9,13 @@ conf:
     testing_mode: 0                 # test service
     web_path: www                   # use your own folder
     app_env: dev                    # prod or dev (prod is faster)
-    winNFS: false                   # Enable if you're sure NFS is available and enabled on your windows 10
+    ssl: on                         # disable if you can't install certificate
 
 vm:  
     name: ecoservice                # VM name for Virtualbox
     memory: 3072
     cpus: 2
-    cpuexecutioncap: 80             # 80% of virtual cpu (use higher value with nfs)
+    cpuexecutioncap: 80             # virtual cpu (use high value with nfs)
     natdnshostresolver1: "on"       # perf +
     natdnsproxy1: "on"              # perf +
     ioapic: "on"                    # perf +

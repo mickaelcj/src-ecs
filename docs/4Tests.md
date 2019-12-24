@@ -1,4 +1,4 @@
-[&larr; retour au **Git flow**](0Sommaire.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**Astuces** &rarr;](5Tips)
+[&larr; retour au **Git flow**](3GitFlow.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**Astuces** &rarr;](5Tips)
 
 # Intégration continue et tests
 
