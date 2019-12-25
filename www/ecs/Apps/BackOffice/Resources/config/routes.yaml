@@ -1,0 +1,3 @@
+categories:
+   path: /categories
+   controller: Ecs\Apps\FrontOffice\Controller\CategoriesController:index

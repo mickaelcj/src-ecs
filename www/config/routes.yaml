@@ -1,12 +1,12 @@
-front_office:
-   path: /
-   controller: Apps\FrontOffice\DefaultController:index
+# 2 main routes | config others in the dedicated space
+fo:
+   resource: ../ecs/Apps/FrontOffice/Resources/config/
+   type: directory
+   name_prefix: 'fo_'
+   prefix: /
 
-back_office:
-   path: /wp-admin
-   controller: Apps\BackOffice\Controller\DefaultController:index
-
-# useful no error page listing
-# blog_list:
-#     path:       /blog/{page<\d+>?1}
-#     controller: App\Controller\BlogController::list
+bo:
+   resource: ../ecs/Apps/BackOffice/Resources/config/
+   name_prefix: 'bo_'
+   type: directory
+   prefix: /wp-admin

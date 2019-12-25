@@ -9,13 +9,13 @@ conf:
     testing_mode: 0                 # test service
     web_path: www                   # use your own folder
     app_env: dev                    # prod or dev (prod is faster)
-    ssl: on                         # disable if you can't install certificate
+    ssl: true                       # disable if you can't install a certificate
 
 vm:  
-    name: ecoservice                # VM name for Virtualbox
-    memory: 3072
-    cpus: 2
-    cpuexecutioncap: 80             # virtual cpu (use high value with nfs)
-    natdnshostresolver1: "on"       # perf +
-    natdnsproxy1: "on"              # perf +
-    ioapic: "on"                    # perf +
+    name: ecoservice                # VM name for Virtualbox (string)
+    memory: 3072                    # binary friendly value (int)
+    cpus: 2                         # logical cores of vm (int)
+    cpuexecutioncap: 80             # virtual cpu, use high value with nfs (int | max: 100)
+    natdnshostresolver1: "on"       # perf + (string on/off)
+    natdnsproxy1: "on"              # perf + (string on/off)
+    ioapic: "on"                    # perf + (string on/off)

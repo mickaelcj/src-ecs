@@ -49,7 +49,7 @@ Le NFS est un système de partage de fichier haute performance compatible avec L
 Petite amélioration de performance avec : `git config core.preloadindex true`
 
 ### Erreurs connues
-Le certificat n'est toujours pas bon, pour récupérer le bon : (à éxecuter à la racine du projet)
-> Si erreur `scp -P 22 root@ecoservice.dev:/etc/ssl/ecoservice.dev/pkcs12.pfx docs/cert/` (mdp: vagrant)
+Le certificat n'est toujours pas bon, pour récupérer le bon éxecuter à la racine du projet: 
+> `scp -P 22 root@ecoservice.dev:/etc/ssl/ecoservice.dev/pkcs12.pfx docs/cert/` (mdp: vagrant)
 ---
 ### <center>[Retour au sommaire &#8617;](docs/0Sommaire.md)</center>
