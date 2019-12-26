@@ -8,6 +8,6 @@ class CategoriesController
 {
     public function index(): Response
     {
-        return new Response("Hello front_office");
+        return new Response("Hello categories");
     }
 }

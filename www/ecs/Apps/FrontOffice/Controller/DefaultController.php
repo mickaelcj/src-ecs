@@ -3,11 +3,19 @@
 namespace Ecs\Apps\FrontOffice\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class DefaultController
+/**
+ * Controller Front office homepage
+ *
+ * @author Roux loic <loic.roux.404@gmail.com>
+ */
+class DefaultController extends AbstractController
 {
     public function index(): Response
     {
-        return new Response("Hello front_office");
+        return $this->render('base.html.twig', [
+            'message' => "Hello front office"
+        ]);
     }
 }

@@ -9,7 +9,7 @@ conf:
     testing_mode: 0                 # test service
     web_path: www                   # use your own folder
     app_env: dev                    # prod or dev (prod is faster)
-    ssl: true                       # disable if you can't install a certificate
+    ssl: true                      # disable if you can't install a certificate
 
 vm:  
     name: ecoservice                # VM name for Virtualbox (string)

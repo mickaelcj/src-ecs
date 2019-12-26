@@ -11,7 +11,7 @@
     "dev": "encore dev",
     "lint": "tslint ",
     "watch": "encore dev --watch",
-    "build": "encore production --progress"
+    "prod": "encore production --progress"
   },
   "dependencies": {
     "@beyonk/google-fonts-webpack-plugin": "^1.2.3",

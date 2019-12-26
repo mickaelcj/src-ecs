@@ -7,7 +7,6 @@ current_dir    = File.dirname(File.expand_path(__FILE__))
 yml = YAML.load_file("#{current_dir}/config.yaml")
 conf, vm =  yml['conf'], yml['vm']
 # If you're on a new build of Windows 10 you can try to use NFS
-conf['nfs'], NFS = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux?
 os             = "bento/debian-" + conf['os']
 # book repo
 playbook_name  = "playbook-#{conf['projectname']}"
@@ -18,6 +17,8 @@ playbook       = "https://github.com/#{conf['org']}/#{playbook_name}.git"
 # use `/vagrant` for debug ansible playbook and `/tmp` for common init
 debug          = conf['debug_playbook']
 folder         = debug ? '/vagrant' : '/tmp'
+# nfs config
+conf['nfs'], NFS = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux? && !debug
 
 # Vagrantfile API/syntax version.
 VAGRANTFILE_API_VERSION = "2"
@@ -27,8 +28,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = os
   config.ssh.insert_key = false
   config.ssh.forward_agent = true
-
-  
 
   # reload nfs / shared folder after provision
   if File.exist?(".vagrant/machines/default/virtualbox/action_provision") && !debug

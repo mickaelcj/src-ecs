@@ -12,3 +12,5 @@
 # ecs specific
 *_debug*
 *playbook*/
+
+config.yaml
