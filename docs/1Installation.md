@@ -48,6 +48,7 @@ Petite amélioration de performance avec : `git config core.preloadindex true`
 ### Erreurs connues
 
 - Le **nfs** ne marche pas sur mac os catalina : [solution à suivre](https://stackoverflow.com/a/58547588 )
+
 &rarr; Puis réinstaller vagrant en suivant cette doc : [rebuild vagrant](https://www.vagrantup.com/docs/installation/source.html)
 
 - Le **certificat** n'est toujours pas bon, pour récupérer le bon éxecuter à la racine du projet: 

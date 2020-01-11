@@ -82,6 +82,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.extra_vars = conf
   end
 
+
   if NFS
     # NFS config / bind vagrant user to nfs mount
     if Vagrant::Util::Platform.darwin? 
