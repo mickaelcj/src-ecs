@@ -4,8 +4,8 @@
 
 ### Sur votre VM le projet miroir se trouve à `/data/ecs/www`
 ### Sur votre navigateur : 
-- [ecoservice.dev](http://ecoservice.dev) &rarr; Pour le mettre en place : [doc ici](docs/1Installation.md)
-- [localhost:81](http://localhost:81)
+- [ecoservice.coom](http://ecoservice.dev) &rarr; Pour le mettre en place : [doc ici](docs/1Installation.md)
+- [localhost:8080](http://localhost:81)
 
 ## Config pour synchroniser ses fichiers avec la VM
 - Automatique sur phpStorm
