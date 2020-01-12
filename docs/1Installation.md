@@ -7,11 +7,12 @@
 - VirtualBox 6.0.8
 
 ## Installation et lancement de la vm
+##### *!!!* *Avant tout on fork le projet sur son espace github*
 
 - Ajouter sa clé ssh sur **Github**: [doc ici](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
-- Lancer la VM avec `vagrant up`
-
-> Un script assez long va se charger d'installer tous les outils et de configurer l'environment du projet<br>
+- git clone `git@github.com:g4-dev/src-ecs.git && cd src-ecs/`
+- Lancer la VM avec `vagrant up` Soyez patient
+- `vagrant ssh` et dans la *vm* `www; composer install;`
 
 - Après `vagrant ssh` | Consulter la liste des commandes shells : [Ici](5Tips)
 - [localhost:81](http://localhost:81)
@@ -27,13 +28,22 @@ Pour utiliser ce domaine on peut ajouter manuellement [**ce certificat**](full_c
 Sinon on peut toujours se contenter de [localhost:81](http://localhost:81)
 
 ## Base de donnée
-Cette base de donnée est hébergée à distance afin que l'on puisse travailler avec les mêmes datas
+Base local pour travailler seul (ajouter régulèrement des données svp)
+- host : localhost
+- user : ecs_user
+- pw: ecommerce
+- db: ecommerce
+
+#### Pas de phpmyadmin, utilisez plutôt l'outil phpstorm
+
+Cette base de donnée est hébergée à distance afin que l'on puisse se partager les datas
 
 - mysql_host: `remotemysql.com`
 - mysql_user: `EmwnLitSLR`
 - mysql_pw: `Gk0qCm6hFI`
 - mysql_db: `eEmwnLitSLR`
-### [**lien vers Phpmyadmin**](https://remotemysql.com/phpmyadmin/index.php) 
+
+#### [**lien vers Phpmyadmin**](https://remotemysql.com/phpmyadmin/index.php) 
 
 # NFS
 Le NFS est un système de partage de fichier haute performance compatible avec Linux et Mac<br>

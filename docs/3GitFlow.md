@@ -10,6 +10,8 @@ Les objectifs de ce flux de travail:
  - Assurer une intégration continue
  - Eviter des bugs
 
+Je me casse pas la tête je vous fout le truc officiel *à lire en diagonale*
+
 ## Why care about the history?
 
 Knowledge of how to deal with the development history is essential and helps to understand how to use our code by ourselves and 3rd-party users. In particular, to answer the questions:
