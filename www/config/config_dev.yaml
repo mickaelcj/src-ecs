@@ -1,3 +1,0 @@
-# various constants to configure symfony and other plugins
-imports:
-    - { resource: parameters.yaml }

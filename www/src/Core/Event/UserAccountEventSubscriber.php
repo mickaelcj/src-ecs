@@ -92,8 +92,8 @@ class UserAccountEventSubscriber implements EventSubscriberInterface
             'mail/welcome.html.twig',
             ['user' => $user]
         );
-        $mail->setReplyTo('test@devgrid.net');
-        $mail->setTo($user->getEmail());
+        $mail->replyTo('test@devgrid.net');
+        $mail->to($user->getEmail());
         $this->mailer->send($mail);
     }
 
@@ -104,7 +104,7 @@ class UserAccountEventSubscriber implements EventSubscriberInterface
             'mail/password-reset.html.twig',
             ['user' => $user]
         );
-        $mail->setTo($user->getEmail());
+        $mail->to($user->getEmail());
         $this->mailer->send($mail);
     }
 

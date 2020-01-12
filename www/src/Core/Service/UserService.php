@@ -60,7 +60,7 @@ class UserService
                 throw new \RuntimeException("Missing value for key: " . $key);
             }
         }
-
+        dump($data);
         $this->logger->debug(sprintf('%s: Registering user account, email=%s',
             __METHOD__, $data['email']));
 
@@ -70,10 +70,10 @@ class UserService
             ->setToken(RandomStringGenerator::generate(32))
             ->populate($data)
             ;
-
+        dump($user);
         $this->save($user);
 
-        $this->eventDispatcher->dispatch(UserAccountEvent::REGISTERED, new UserAccountEvent($user));
+        $this->userEvent($user, UserAccountEvent::REGISTERED );
 
         return $user;
     }
@@ -83,7 +83,7 @@ class UserService
         $user->setIsActive(true);
         $this->save($user);
 
-        $this->eventDispatcher->dispatch(UserAccountEvent::ACTIVATED, new UserAccountEvent($user));
+        $this->userEvent($user, UserAccountEvent::ACTIVATED);
     }
 
     public function update(User $user, array $changes)
@@ -96,7 +96,7 @@ class UserService
         }
 
         $this->save($user);
-        $this->eventDispatcher->dispatch(UserAccountEvent::MODIFIED, new UserAccountEvent($user));
+        $this->userEvent($user, UserAccountEvent::MODIFIED);
     }
 
     public function changePassword(User $user, string $newPassword)
@@ -105,15 +105,15 @@ class UserService
         $user->setToken(RandomStringGenerator::generate(32));
         $this->save($user);
 
-        $this->eventDispatcher->dispatch(UserAccountEvent::PASSWORD_CHANGED, new UserAccountEvent($user));
+        $this->userEvent($user, UserAccountEvent::PASSWORD_CHANGED);
     }
 
     public function requestPassword(User $user)
     {
         $user->setToken(RandomStringGenerator::generate(32));
         $this->save($user);
-
-        $this->eventDispatcher->dispatch(UserAccountEvent::PASSWORD_REQUESTED, new UserAccountEvent($user));
+    
+        $this->userEvent($user, UserAccountEvent::PASSWORD_REQUESTED);
     }
 
     public function create($email, $password): User
@@ -188,5 +188,9 @@ class UserService
     public function validatePassword(User $user, string $password)
     {
         return $this->passwordEncoder->isPasswordValid($user, $password);
+    }
+    
+    private function userEvent($user, $eventName){
+        $this->eventDispatcher->dispatch(new UserAccountEvent($user), $eventName);
     }
 }

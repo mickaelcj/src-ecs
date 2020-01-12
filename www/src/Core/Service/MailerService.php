@@ -4,6 +4,10 @@ namespace Core\Service;
 
 use Core\Entity\Admin;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+
 
 class MailerService
 {
@@ -13,7 +17,7 @@ class MailerService
     protected $logger;
 
     /**
-     * @var \Swift_Mailer
+     * @var MailerInterface
      */
     protected $mailer;
 
@@ -38,7 +42,7 @@ class MailerService
     protected $adminService;
 
     public function __construct(LoggerInterface $logger,
-                                \Swift_Mailer $mailer,
+                                MailerInterface $mailer,
                                 \Twig\Environment $twig,
                                 string $emailFrom,
                                 string $emailName,
@@ -53,37 +57,40 @@ class MailerService
         $this->adminService = $adminService;
     }
 
-    public function createMessage($subject, $body, $contentType = 'text/plain'): \Swift_Message
+    public function createMessage($subject, $body): Email
     {
-        $message = new \Swift_Message($subject, $body, $contentType);
-        $message->setFrom([$this->emailFrom => $this->emailName]);
+        $message = new Email();
+        
+        $message->subject($subject);
+        $message->html($body);
+        $message->from(new Address($this->emailFrom, $this->emailName));
         return $message;
     }
 
-    public function createTwigMessage($subject, $template, $context = []): \Swift_Message
+    public function createTwigMessage($subject, $template, $context = []): Email
     {
-        return $this->createMessage($subject, $this->twig->render($template, $context), 'text/html');
+        return $this->createMessage($subject, $this->twig->render($template, $context));
     }
 
-    public function send(\Swift_Message $message, $to = null)
+    public function send(Email $message, $to = null)
     {
         if (isset($to)) {
-            $message->setTo($to);
+            $message->to($to);
         }
         return $this->mailer->send($message);
     }
 
-    public function broadcastToAdmins(\Swift_Message $message)
+    public function broadcastToAdmins(Email $message)
     {
         $list = $this->adminService->listAdmins();
         /** @var Admin $admin */
         foreach ($list->getItems() as $admin) {
-            $message->setTo($admin->getEmail());
+            $message->to($admin->getEmail());
             $this->send($message);
         }
     }
 
-    public function createEventMessage($subject, $payload): \Swift_Message
+    public function createEventMessage($subject, $payload): Email
     {
         return $this->createTwigMessage($subject,'mail/event.html.twig', [
             'subject' => $subject,
