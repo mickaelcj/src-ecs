@@ -86,17 +86,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   if NFS
     # NFS config / bind vagrant user to nfs mount
     if Vagrant::Util::Platform.darwin? 
-      if Vagrant.has_plugin?('vagrant-bindfs')
-        puts "vagrant-bindfs missing, please install the plugin with this command:\nvagrant plugin install vagrant-bindfs"
-        exit
-      else
-        #config.nfs.map_uid = Process.uid
-        #config.nfs.map_gid = Process.gid
-        #config.bindfs.bind_folder "./www", "/data/ecs/www"
-        #config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", nfs_version: 3, 
-        #nfs_udp: true, mount_options: ['rw', 'fsc','all_squash','actimeo=2']
-        puts "nfs not working yet"
-      end
+        #config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", nfs_version: 3, nfs_udp: true, mount_options: ['rw','fsc','actimeo=2']
+        puts "nfs not working yet / need binding"
     else
       # linux nfs 4 server
       config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", nfs_version: 4, nfs_udp: false, mount_options: ['rw','noac','actimeo=2']

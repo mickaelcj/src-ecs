@@ -16,7 +16,6 @@
         "symfony/mailer": "5.0.*",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "5.0.*",
-        "symfony/swiftmailer-bundle": "^3.4",
         "symfony/twig-pack": "^1.0",
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.0.*"
@@ -31,7 +30,7 @@
         "psr-4": {
             "Admin\\": "src/Admin",
             "Core\\": "src/Core",
-            "Portal\\": "src/Portal"
+            "FrontOffice\\": "src/FrontOffice"
         }
     },
     "autoload-dev": {
@@ -55,7 +54,8 @@
         },
         "post-install-cmd": [
             "@auto-scripts",
-            "yarn && yarn dev"
+            "yarn",
+            "yarn dev"
         ],
         "post-update-cmd": [
             "@auto-scripts"

@@ -3,49 +3,36 @@
 # 1. initialisation du projet
 
 ### Requis
-- vagrant 2.2.+
+- vagrant 2.2.3+
 - VirtualBox 6.0.8
+- git bash ou [celui là](5Tips#ConseildeShell)
 
 ## Installation et lancement de la vm
-##### *!!!* *Avant tout on fork le projet sur son espace github*
+1. Ajouter sa clé ssh sur **Github**: [doc ici](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
 
-- Ajouter sa clé ssh sur **Github**: [doc ici](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
-- git clone `git@github.com:g4-dev/src-ecs.git && cd src-ecs/`
+2. Avant tout on fork le projet sur son espace github
+
+#### Cliquez sur fork :
+![fork](res/fork.png)
+
+#### Après le fork : `git clone git@github.com:<votre-pseudo-github>/src-ecs.git && cd src-ecs/`
+![after_fork](res/after_fork.png)
+
+3. Ajouter le projet original à vos remotes (*sélectionnez le lien ssh*)
+
+```
+git remote add g4-dev git@github.com:g4-dev/src-ecs.git
+```
+
 - Lancer la VM avec `vagrant up` Soyez patient
-- `vagrant ssh` et dans la *vm* `www; composer install;`
+- `vagrant ssh` et dans la *vm* `www`
+- Après `vagrant ssh` | Consulter la liste des commandes shells utiles : [Ici](5Tips)
+- [ecoservice.coom](http://ecoservice.coom)
 
-- Après `vagrant ssh` | Consulter la liste des commandes shells : [Ici](5Tips)
-- [localhost:81](http://localhost:81)
-
-### Le nom de domaine
-Il est intéressant de dissocier les url de projet et donc pour cela on peut utiliser le domaine personnalisé :
-[**ecoservice.dev**](https://ecoservice.dev) <br>
-Pour utiliser ce domaine on peut ajouter manuellement [**ce certificat**](full_certificat.pfx) dans notre navigateur.<br><br>
-
-**Tuto** : (FF ou Chrome) > `paramètres` > rechercher `ssl` > Gérér les certificats > Importer le fichier [`.pfx`](cert/full.pfx) ou [`pem`](cert/certificat.pem)
-
----
-Sinon on peut toujours se contenter de [localhost:81](http://localhost:81)
-
-## Base de donnée
-Base local pour travailler seul (ajouter régulèrement des données svp)
-- host : localhost
-- user : ecs_user
-- pw: ecommerce
-- db: ecommerce
-
-#### Pas de phpmyadmin, utilisez plutôt l'outil phpstorm
-
-Cette base de donnée est hébergée à distance afin que l'on puisse se partager les datas
-
-- mysql_host: `remotemysql.com`
-- mysql_user: `EmwnLitSLR`
-- mysql_pw: `Gk0qCm6hFI`
-- mysql_db: `eEmwnLitSLR`
 
 #### [**lien vers Phpmyadmin**](https://remotemysql.com/phpmyadmin/index.php) 
 
-# NFS
+## NFS
 Le NFS est un système de partage de fichier haute performance compatible avec Linux et Mac<br>
 
 #### Sur mac
@@ -55,20 +42,15 @@ Petite amélioration de performance avec : `git config core.preloadindex true`
 #### Sur linux (debian/ubuntu)
 `apt install nfs-kernel-server nfs-common`
 
-### Erreurs connues
+## SSL
+On prévoit par la suite mettre en place un certificat autosigné
 
-- Le **nfs** ne marche pas sur mac os catalina : [solution à suivre](https://stackoverflow.com/a/58547588 )
-
-&rarr; Puis réinstaller vagrant en suivant cette doc : [rebuild vagrant](https://www.vagrantup.com/docs/installation/source.html)
-
-- Le **certificat** n'est toujours pas bon, pour récupérer le bon éxecuter à la racine du projet: 
+- Le **certificat** : 
 > `scp -P 22 root@ecoservice.dev:/etc/ssl/ecoservice.dev/pkcs12.pfx docs/cert/` (mdp: vagrant)
 
-- lorsque on reprovisionne la vm avec le NFS activé: <br>
-    **Exécuter** : 
-    ```
-    rm .vagrant/machines/default/action_provision && vagrant reload --provision
-    ```
+## ça ne marche toujours pas
+
+Consultez la liste des erreurs connues [Erreurs Installation](6KnowedErrors.md#installation)
 
 ---
 ### <center>[Retour au sommaire &#8617;](docs/0Sommaire.md)</center>

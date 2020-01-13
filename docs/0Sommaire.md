@@ -11,3 +11,5 @@
 ## [4 - Tests](4Tests.md)
 
 ## [5 - Astuces](5Tips.md)
+
+## [6 - Erreurs connues](6KnowedErrors.md)

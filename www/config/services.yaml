@@ -31,8 +31,8 @@ services:
       resource: '../src/Admin/Controller'
       tags: ['controller.service_arguments']
 
-    Portal\Controller\:
-        resource: '../src/Portal/Controller'
+    FrontOffice\Controller\:
+        resource: '../src/FrontOffice/Controller'
         tags: ['controller.service_arguments']
 
     core.admin:
@@ -50,5 +50,5 @@ services:
     admin.security.login_form_guard:
         class: 'Admin\Security\LoginFormGuard'
 
-    portal.security.login_form_guard:
-        class: 'Portal\Security\LoginFormGuard'
+    front_office.security.login_form_guard:
+        class: 'FrontOffice\Security\LoginFormGuard'

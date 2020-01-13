@@ -25,18 +25,19 @@ Encore
 
     .enableSassLoader()
 
-    //.addPlugin(new GoogleFontsPlugin(fontsConf))
+    .addPlugin(new GoogleFontsPlugin(fontsConf))
     
     .autoProvidejQuery()
 ;
+
 let config = Encore.getWebpackConfig();
-// config.resolve.alias = {
-//     ...config.resolve.alias, ...{
-//         '@': path.resolve(__dirname, 'assets/ts'),
-//         '#': path.resolve(__dirname, 'assets/scss'),
-//     },
-//     ...config.resolve.extensions.push('.scss')
-// };
+config.resolve.alias = {
+    ...config.resolve.alias, ...{
+        '@': path.resolve(__dirname, 'assets/ts'),
+        '#': path.resolve(__dirname, 'assets/scss'),
+    },
+    ...config.resolve.extensions.push('.scss')
+};
 
 // config.watchOptions.poll = true;
 

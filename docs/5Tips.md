@@ -1,9 +1,9 @@
-[&larr; retour aux **tests**](4Tests.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**Sommaire** &rarr;](0Sommaire.md)
+[&larr; retour aux **tests**](4Tests.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**Erreurs connues** &rarr;](6KnowedErrors.md)
 
 # Trucs et astuces
 
 ### Sur le terminal de la VM
-Le shell est un `bash` classique qui est toutefois un peu tuner.
+Le shell est un `bash` classique qui est toutefois un peu tuné.
 
 ## Voici une liste de commandes shell
 
@@ -29,18 +29,18 @@ Le shell est un `bash` classique qui est toutefois un peu tuner.
 `yi` &rarr; `yarn add` <br>
 `yt` &rarr; `yarn test` <br>
 
-### Shell de l'hôte (conseil)
+### Conseil de Shell
 - [Installer Cygwin](https://www.cygwin.com/) pour windows
 - Lors du processus d'installation selectionnez les packages `wget` &nbsp; `curl` &nbsp; `lynx` &nbsp; `git` &nbsp; `vim` &nbsp; `fish`
 > Attention à celui que vous prenez (nom exactes ci dessus)
-- Lancer le terminal et faire `echo fish >> .bash_profile`
+- Lancer le terminal et faire `echo 'fish' >> .bash_profile`
 - Run `lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg`
 - install `apt-cyg /bin`
 
 Redémarrez votre shell et puis laisser la magie opérer en écrivant la commande `fish_config`
 
 ### Bonus : 
-Installez la police [Fira Code](https://github.com/tonsky/FiraCode/releases/download/1.206/FiraCode_1.206.zip) en faisant `clic droit` > `paramètres` sur votre shell
+Installez la police [Fira Code dispo ici](https://github.com/tonsky/FiraCode/releases/download/1.206/FiraCode_1.206.zip) en faisant `clic droit` > `paramètres` sur votre shell
 Vous pouvez l'installer
 
 Puis :

@@ -32,13 +32,13 @@ security:
                 path: /admin/logout
                 target: /admin
 
-        portal:
+        front_office:
             pattern: ^/
             anonymous: ~
             provider: user_provider
             guard:
                 authenticators:
-                    - portal.security.login_form_guard
+                    - front_office.security.login_form_guard
             logout:
                 path: /logout
                 target: /
