@@ -16,6 +16,7 @@
 
 - Je créer une branche à partir de celle demandée par mon ticket ou je demande
 - Je code une feature `front` ou `back` (pas les deux)
+- Je download `composer.json` et `package.json`, les `.lock` aussi
 - Je met à jour ma branche : [Mettre a jour sa branche](docs/3GitFlow.md#majbranche)
 - Je créer une PR [Faire une PR](docs/3GitFlow.md#environments)
 - Je la met à jour avant que le lead dev ou chef de proj la merge
