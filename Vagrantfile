@@ -52,6 +52,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "private_network", type: "dhcp"
 
   config.vm.hostname = conf['servername']
   config.hostmanager.enabled = true
@@ -85,9 +86,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   if NFS
     # NFS config / bind vagrant user to nfs mount
-    if Vagrant::Util::Platform.darwin? 
-        #config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", nfs_version: 3, nfs_udp: true, mount_options: ['rw','fsc','actimeo=2']
-        puts "nfs not working yet / need binding"
+    if Vagrant::Util::Platform.darwin?
+        config.nfs.map_uid = 1000
+        config.nfs.map_gid = 1000
+        config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", nfs_version: 3, nfs_udp: true,
+        mount_options: ['rw','fsc','noac','actimeo=1'], linux__nfs_options: ['rw','all_squash','insecure','no_subtree_check','async']
     else
       # linux nfs 4 server
       config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", nfs_version: 4, nfs_udp: false, mount_options: ['rw','noac','actimeo=2']

@@ -2,9 +2,9 @@
 
 namespace Core\Helper;
 
-use Generic\Collection\Collection;
-use Generic\Entity\PopulateInterface;
-use Generic\Entity\ToArrayInterface;
+use Core\Generics\Collection\Collection;
+use Core\Generics\Entity\PopulateInterface;
+use Core\Generics\Entity\ToArrayInterface;
 
 class ListContainer implements PopulateInterface, ToArrayInterface
 {

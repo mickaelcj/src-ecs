@@ -5,14 +5,13 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "cepa/generic-php": "dev-master",
         "easycorp/easyadmin-bundle": "^2.3",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/console": "5.0.*",
         "symfony/flex": "^1.6",
         "symfony/form": "5.0.*",
         "symfony/framework-bundle": "5.0.*",
-        "symfony/google-mailer": "5.0.x-dev",
+        "symfony/google-mailer": "5.0.*",
         "symfony/mailer": "5.0.*",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "5.0.*",
@@ -79,10 +78,4 @@
         "symfony/phpunit-bridge": "5.0.*",
         "symfony/profiler-pack": "^1.0"
     },
-    "repositories": [
-        {
-            "url": "https://github.com/cepa/generic-php.git",
-            "type": "git"
-        }
-    ]
 }

@@ -1,45 +1,72 @@
 var Encore = require('@symfony/webpack-encore');
 const path = require('path');
-const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin");
-const fontsConf = require('./fonts.json');
+const fsr = require('fs').readFileSync;
+const yml = require('js-yaml');
+const CONFIGS = yml.safeLoad(fsr('./config/pages.yml'), yml.JSON_SCHEMA);
+const EXCLUDE = '/node_modules/';
 
-Encore
-// directory where compiled assets will be stored
-    .setOutputPath('public/build/')
-    
-    .setPublicPath('/build')
-
-    .addEntry('app', './assets/app.js')
-
-    .disableSingleRuntimeChunk()
-
-    .cleanupOutputBeforeBuild()
-
-    .enableBuildNotifications(!Encore.isProduction())
-
-    .enableSourceMaps(!Encore.isProduction())
-
-    .enableVersioning(Encore.isProduction())
-
-    //.enableTypeScriptLoader()
-
-    .enableSassLoader()
-
-    .addPlugin(new GoogleFontsPlugin(fontsConf))
-    
-    .autoProvidejQuery()
-;
-
-let config = Encore.getWebpackConfig();
-config.resolve.alias = {
-    ...config.resolve.alias, ...{
-        '@': path.resolve(__dirname, 'assets/ts'),
-        '#': path.resolve(__dirname, 'assets/scss'),
-    },
-    ...config.resolve.extensions.push('.scss')
+// set an config object used in all workspace (front-office / admin)
+const aliases = (config) => {
+	return {
+		// add to all workspaces
+		...config.resolve.alias, ...{
+			'@': path.resolve(__dirname, 'assets/front_office/ts'),
+			'#': path.resolve(__dirname, 'assets/front_office/scss'),
+		},
+		...config.resolve.extensions.push('.scss'),
+	};
 };
 
-// config.watchOptions.poll = true;
+let workspaces = [];
 
-module.exports = config;
+CONFIGS.forEach(({ name, pages, ext }) => {
+
+	console.log(` Workspace : ${name}\n`);
+	console.table(pages);
+
+	pages.forEach(page => {
+		Encore.addEntry(page, path.resolve(__dirname, `assets/${name}/${page}.${ext}`));
+	});
+
+	Encore
+
+		.cleanupOutputBeforeBuild()
+
+		.setOutputPath(`public/build/${name}`)
+
+		.setPublicPath(`/build/${name}`)
+
+		.disableSingleRuntimeChunk()
+
+		.enableBuildNotifications(!Encore.isProduction())
+
+		.enableSourceMaps(!Encore.isProduction())
+
+		.enableVersioning(Encore.isProduction())
+
+		.enableSassLoader()
+
+		.enablePostCssLoader()
+
+		.autoProvidejQuery()
+
+	;
+
+	if (ext === 'ts') {
+		Encore.enableTypeScriptLoader();
+	}
+
+	let config = Encore.getWebpackConfig();
+
+	// fix build with nfs enable
+	config.watchOptions = { poll: true, ignored: EXCLUDE };
+	config.name = name;
+	config.resolve.alias = aliases(config);
+
+	workspaces.push(config);
+
+	Encore.reset();
+});
+
+module.exports = workspaces;
 

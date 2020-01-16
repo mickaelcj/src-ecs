@@ -3,7 +3,7 @@
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Generic\Entity\Entity;
+use Core\Generics\Entity\Entity;
 
 abstract class AbstractUser extends Entity
 {
