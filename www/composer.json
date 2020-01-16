@@ -70,7 +70,7 @@
         }
     },
     "require-dev": {
-        "brianium/paratest": "dev-master",
+        "brianium/paratest": "3.1.*",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "nelmio/alice": "^3.5",
         "symfony/browser-kit": "5.0.*",

@@ -16,9 +16,10 @@ playbook         = "https://github.com/#{conf['org']}/#{playbook_name}.git"
 # Be aware of shared folders when deleting things
 debug            = conf['debug_playbook']
 folder           = debug ? '/vagrant' : '/tmp'
+web_dir          = "/data/#{conf['projectname']}/#{conf['web_path']}"
 # nfs config
 conf['nfs'] = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux?
-NFS = conf['nfs'] && ARGV[1] != '--provision' && (File.exist? File.dirname(__FILE__) + "/.vagrant/machines/default/virtualbox/action_provision")
+NFS_ENABLED = conf['nfs'] && ARGV[1] != '--provision' && (File.exist? File.dirname(__FILE__) + "/.vagrant/machines/default/virtualbox/action_provision")
 # ssl config
 hosts            = ""
 
@@ -29,11 +30,9 @@ end
 hosts << conf['servername'] << " "
 hosts << "api." << conf['servername'] << " "
 
-# Vagrantfile API/syntax version.
-VAGRANTFILE_API_VERSION = "2"
-Vagrant.require_version ">= 2.0.1"
+Vagrant.require_version ">= 2.2.2"
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+Vagrant.configure(2) do |config|
   config.vm.box = os
   
   id_rsa_path        = File.join(Dir.home, ".ssh", "id_rsa")
@@ -52,7 +51,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "private_network", type: "dhcp"
+  config.vm.network "forwarded_port", guest: 3306, host: 3366
 
   config.vm.hostname = conf['servername']
   config.hostmanager.enabled = true
@@ -83,22 +82,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.extra_vars = conf
   end
 
-
-  if NFS
+  if NFS_ENABLED
     # NFS config / bind vagrant user to nfs mount
     if Vagrant::Util::Platform.darwin?
-        config.nfs.map_uid = 1000
-        config.nfs.map_gid = 1000
-        config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", nfs_version: 3, nfs_udp: true,
-        mount_options: ['rw','fsc','noac','actimeo=1'], linux__nfs_options: ['rw','all_squash','insecure','no_subtree_check','async']
+        config.vm.synced_folder "./www", "#{web_dir}", type: "nfs", nfs_version: 3, nfs_udp: true,
+        mount_options: ['rw','fsc','noac','actimeo=1','async'],
+        linux__nfs_options: ['rw','all_squash','insecure','no_subtree_check','async']
+        # fix bad user binding when mounting from OS X catalina / mojave
+        config.vm.provision :shell, :inline => "sudo bindfs --map=501/vagrant:@dialout/@vagrant --perms=u=rwx,g=rx,o=rx #{web_dir} #{web_dir}", run: 'always'
     else
       # linux nfs 4 server
-      config.vm.synced_folder "./www", "/data/ecs/www", type: "nfs", nfs_version: 4, nfs_udp: false, mount_options: ['rw','noac','actimeo=2']
+      config.vm.synced_folder "./www", "#{web_dir}", type: "nfs", nfs_version: 4, nfs_udp: false, mount_options: ['rw','noac','actimeo=2']
     end
-  else  
+  else
     # reload nfs / shared folder after provision
-    config.trigger.after [:provision] do |t|
-      t.name = "Reboot after provisioning"
+    config.trigger.after :provision do |t|
+      t.info = "Reboot after provisioning"
       t.run = { :inline => "vagrant reload" }
     end
   end

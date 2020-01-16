@@ -1,1 +1,0 @@
-// Ici ce composant product (produit seul) peut être réutilisé dans plusieurs pages

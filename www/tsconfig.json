@@ -15,7 +15,7 @@
     },
     "types": ["jest"],
     "compileOnSave": false,
-    "include": ["./src/**/*.ts"], 
+    "include": ["./assets/**/*.ts"],
     "exclude": [
       "**/build/", 
       "node_modules", 

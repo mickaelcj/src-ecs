@@ -1,6 +1,6 @@
 doctrine:
     dbal:
-        default_connection: default
+        default_connection: remote
         connections:
             default:
                 # configure these for your database server

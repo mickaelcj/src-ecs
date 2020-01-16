@@ -1,8 +1,12 @@
 [&larr; retour aux **tips**](5Tips.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**Sommaire** &rarr;](0Sommaire.md)
 
 # Erreurs connues
+> *Liste d'erreurs possibles avant de demander de l'aide:* 
 
-### *Liste d'erreurs possibles avant de demander de l'aide:* 
+### Lors du provision
+
+- `Device or resource busy: '/data/ecs/www'` : fermer PHPStorm et relancer avec `vagrant --provision`
+- VM cassé (on ne sais plus quoi faire): `vagrant destroy` puis `vagrant up`
 
 ## Installation
 
@@ -10,7 +14,7 @@ Erreurs lors de l'installation
 
 #### Le **nfs** ne marche pas sur mac os catalina : [solution à suivre](https://stackoverflow.com/a/58547588 )
 
-&rarr; Puis réinstaller vagrant en suivant cette doc : [rebuild vagrant](https://www.vagrantup.com/docs/installation/source.html)
+&rarr; Il est parfois utile de réinstaller vagrant en suivant cette doc : [rebuild vagrant](https://www.vagrantup.com/docs/installation/source.html)
 
 #### Erreur lorsque on reprovisionne la vm avec le NFS activé: <br>
 

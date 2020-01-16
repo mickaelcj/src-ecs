@@ -1,0 +1,12 @@
+# Add pages for the differents spaces here (correspond to webpack entries)
+- name: front_office
+  pages:
+    - products
+    - homepage
+    - adminLogin
+  ext: ts
+
+- name: easyadmin
+  pages:
+    - js/app
+  ext: js

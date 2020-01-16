@@ -6,6 +6,8 @@ Pas encore fait, on ne va pas trop écrire de tests on aura pas tellement le tem
 
 # Intégration continue 
 
+Actuellement simple vérif du `composer install`
+
 L'intégration continue permet d'éviter des erreurs :
 - De mauvais push de branche cassant d'autres fonctionnalités
 - Des tâches de build qui ne marchent pas.

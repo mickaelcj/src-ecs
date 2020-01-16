@@ -7,14 +7,14 @@ Les objectifs de ce flux de travail:
  - Pouvoir travailler à 7
  - Identifiers des objectifs grâce aux releases prévues 
  - Centraliser la gestion des revues et la qualité du code
- - Assurer une intégration continue
  - Eviter des bugs
 
 # Table of contents
 0. [Mise en place des remotes](#remotes)
 1. [Branches](#branches)
-4. [Mettre à jour sa branche](#majbranche)
-2. [Pull requests](#environments)
+2. [Environnement](#environments)
+3. [Mettre à jour sa branche](#majbranche)
+4. [Pull requests](#environments)
 
 ## Remotes
 
@@ -64,13 +64,16 @@ Dans le cas d'une PR je dois push cette branche sur mon fork (origin) :
 
 `git push -u origin <nom-branche>`
 
-## Environments
+## Environment
 
 On fonctionne avec deux interface principales :
 - `github`
 - `clickup`
 
 Sur Clickup on récupère les tâches à faire et ensuite on les éxecute sur github.
+>  Les PR/ commits se retrouveront sur clickup si on suit bien la 
+convention `#id-ticket[status]` dans les messages de commit et titres de PR.
+
 
 Voici un exemple de Pull request détaillé :
 

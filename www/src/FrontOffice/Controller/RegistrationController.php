@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->register($form->getData());
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('fo_homepage');
         }
 
         return $this->render('front_office/registration.html.twig', [

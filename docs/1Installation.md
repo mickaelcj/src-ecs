@@ -32,7 +32,23 @@ git remote add g4-dev git@github.com:g4-dev/src-ecs.git
 
 #### [**lien vers Phpmyadmin**](https://remotemysql.com/phpmyadmin/index.php) 
 
+## Sources
+> Pour mettre à jours les sources local sur la VM <br>
+> *(Ne concerne pas ceux qui ont le NFS activé)*
+
+Notre machine virtuelle est automatiquement mise à jour dans un seul sens soit 
+```
+Hôte (votre machine) ----> VM
+```
+Nous devons donc manuellement récupérer:
+- Des dossier comme `vendor/` ou `node_modules/`
+- Les fichiers comme `composer.json` et `package.json` pour bien mettre à jour les nouveaux modules que l'on ajoute
+
+> #### Pour cela clic droit sur `www/` ou le fichier voulu et `deployment` > `download`
+
 ## NFS
+> Si notre NFS s'active soit sur `linux` et `macos` on désactive bien les option de `deployment` > `sftp` de PHPStorm
+
 Le NFS est un système de partage de fichier haute performance compatible avec Linux et Mac<br>
 
 #### Sur mac

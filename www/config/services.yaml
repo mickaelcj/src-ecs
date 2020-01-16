@@ -8,6 +8,8 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
+    website_name: Ecoservice
+    container.dumper.inline_factories: true
 
 services:
     # default configuration for services in *this* file
