@@ -4,46 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "025a7524322b33fbb8fef93c9de5139a",
+    "content-hash": "a9a38ee2721bf62b290906a876ce984d",
     "packages": [
-        {
-            "name": "cepa/generic-php",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cepa/generic-php.git",
-                "reference": "8ce122c475d6462258cd46e0351ffae5cb895091"
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Generic\\": "src/Generic"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Generic\\": "test/Generic"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lukasz Cepowski",
-                    "email": "lukasz@cepowski.com",
-                    "homepage": "https://cepa.io"
-                }
-            ],
-            "description": "Generic PHP utilities library",
-            "support": {
-                "email": "lukasz@cepowski.com"
-            },
-            "time": "2018-10-17T12:28:27+00:00"
-        },
         {
             "name": "doctrine/annotations",
             "version": "v1.8.0",
@@ -7595,9 +7557,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "cepa/generic-php": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

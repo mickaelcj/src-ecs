@@ -1,6 +1,6 @@
 <?php
 
-namespace Generics\Collection;
+namespace Core\Generics\Collection;
 
 class Collection implements CollectionInterface
 {

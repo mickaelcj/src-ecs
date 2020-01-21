@@ -5,7 +5,11 @@
 
 ### Lors du provision
 
-- `Device or resource busy: '/data/ecs/www'` : fermer PHPStorm et relancer avec `vagrant --provision`
+- `Device or resource busy: '/data/ecs/www'` : 
+    - fermez PHPStorm 
+    - relancez avec `vagrant --provision`
+    - Réouvrir PHPStorm *une fois le provision fini*
+    
 - VM cassé (on ne sais plus quoi faire): `vagrant destroy` puis `vagrant up`
 
 ## Installation

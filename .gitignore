@@ -3,9 +3,6 @@
 .AppleDouble
 .LSOverride
 
-
-#sftp-config.json
-
 # Windows shortcuts
 *.lnk
 
@@ -13,10 +10,13 @@
 *_debug*
 *playbook*/
 
-config.yaml
+#vagrant
+/.vagrant/
+/config.yaml
 
 ###< IDE specific ###
 .idea/*
+!.idea/webServers.xml
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -24,5 +24,4 @@ config.yaml
 *.code-workspace
 
 .vs/
-
 symfony-boilerplate/

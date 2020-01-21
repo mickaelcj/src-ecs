@@ -50,8 +50,8 @@ Vagrant.configure(2) do |config|
       end
   end
 
-  config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "forwarded_port", guest: 3306, host: 3366
+  config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
+  config.vm.network "forwarded_port", guest: 3306, host: 3366, auto_correct: true
 
   config.vm.hostname = conf['servername']
   config.hostmanager.enabled = true

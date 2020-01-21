@@ -1,9 +1,9 @@
 <?php
 
-namespace Generics\Collection;
+namespace Core\Generics\Collection;
 
-use Generics\Entity\PopulateInterface;
-use Generics\Entity\ToArrayInterface;
+use Core\Generics\Entity\PopulateInterface;
+use Core\Generics\Entity\ToArrayInterface;
 
 interface CollectionInterface
     extends

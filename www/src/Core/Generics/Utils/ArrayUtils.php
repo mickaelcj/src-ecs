@@ -1,6 +1,6 @@
 <?php
 
-namespace Generics\Utils;
+namespace Core\Generics\Utils;
 
 class ArrayUtils
 {

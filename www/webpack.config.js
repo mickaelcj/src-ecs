@@ -59,7 +59,7 @@ CONFIGS.forEach(({ name, pages, ext }) => {
 	let config = Encore.getWebpackConfig();
 
 	// fix build with nfs enable
-	config.watchOptions = { poll: true, ignored: '/node_modules/' };
+	config.watchOptions = { poll: true, ignored: EXCLUDE };
 	config.name = name;
 	config.resolve.alias = aliases(config);
 

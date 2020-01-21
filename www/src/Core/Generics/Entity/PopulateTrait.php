@@ -1,6 +1,6 @@
 <?php
 
-namespace Generics\Entity;
+namespace Core\Generics\Entity;
 
 trait PopulateTrait
 {
