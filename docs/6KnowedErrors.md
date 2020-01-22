@@ -5,11 +5,13 @@
 
 ### Lors du provision
 
-- `Device or resource busy: '/data/ecs/www'` : 
-    - fermez PHPStorm 
-    - relancez avec `vagrant --provision`
-    - Réouvrir PHPStorm *une fois le provision fini*
-    
+#### `Device or resource busy: '/data/ecs/www'` : 
+- fermez PHPStorm 
+- relancez avec `vagrant --provision`
+- Réouvrir PHPStorm *une fois le provision fini*
+
+**Il est possible que cette erreur soit due au NFS: Suivez cette [étape](#Erreurssystemedefichier)**
+
 - VM cassé (on ne sais plus quoi faire): `vagrant destroy` puis `vagrant up`
 
 ## Installation
@@ -20,7 +22,8 @@ Erreurs lors de l'installation
 
 &rarr; Il est parfois utile de réinstaller vagrant en suivant cette doc : [rebuild vagrant](https://www.vagrantup.com/docs/installation/source.html)
 
-#### Erreur lorsque on reprovisionne la vm avec le NFS activé: <br>
+#### Erreurs système de fichier
+>Erreur lorsque on reprovisionne la vm avec le NFS activé
 
 **Exécuter** : 
 ```

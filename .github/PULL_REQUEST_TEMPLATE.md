@@ -6,7 +6,7 @@
 
 ## Comment tester
 
-## Mes bonne pratiques
+## Mes bonnes pratiques
 
 [ ] Le titre de ma PR contient bien l'id de mon ticket<br>
 [ ] Mon historique est correcte <br>

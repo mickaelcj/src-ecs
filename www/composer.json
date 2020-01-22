@@ -7,14 +7,14 @@
         "ext-iconv": "*",
         "easycorp/easyadmin-bundle": "^2.3",
         "sensio/framework-extra-bundle": "^5.5",
-        "symfony/console": "5.0.*",
+        "symfony/console": "5.0.3",
         "symfony/flex": "^1.6",
-        "symfony/form": "5.0.*",
-        "symfony/framework-bundle": "5.0.*",
-        "symfony/google-mailer": "5.0.*",
-        "symfony/mailer": "5.0.*",
+        "symfony/form": "5.0.3",
+        "symfony/framework-bundle": "5.0.3",
+        "symfony/google-mailer": "5.0.3",
+        "symfony/mailer": "5.0.3",
         "symfony/orm-pack": "^1.0",
-        "symfony/security-bundle": "5.0.*",
+        "symfony/security-bundle": "5.0.3",
         "symfony/twig-pack": "^1.0",
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.0.*"
@@ -66,16 +66,16 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.0.*"
+            "require": "5.0.3"
         }
     },
     "require-dev": {
         "brianium/paratest": "3.1.*",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "nelmio/alice": "^3.5",
-        "symfony/browser-kit": "5.0.*",
-        "symfony/css-selector": "5.0.*",
-        "symfony/phpunit-bridge": "5.0.*",
+        "symfony/browser-kit": "5.0.3",
+        "symfony/css-selector": "5.0.3",
+        "symfony/phpunit-bridge": "5.0.3",
         "symfony/profiler-pack": "^1.0"
     }
 }
