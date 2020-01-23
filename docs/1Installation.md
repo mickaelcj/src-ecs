@@ -47,9 +47,10 @@ Nous devons donc manuellement récupérer:
 > #### Pour cela clic droit sur `www/` ou le fichier voulu et `deployment` > `download`
 
 ## NFS
-> Si notre NFS s'active soit sur `linux` et `macos` on désactive bien les option de `deployment` > `sftp` de PHPStorm
 
-Le NFS est un système de partage de fichier haute performance compatible avec Linux et Mac<br>
+>Le NFS est un système de partage de fichier haute performance compatible avec Linux et Mac<br>
+
+Si notre NFS s'active soit sur `linux` et `macos` on désactive bien les option de `deployment` > `sftp` de PHPStorm
 
 #### Sur mac
 - Donner l'accès complès au disque pour le terminal dans `sécurité & confidentialité`

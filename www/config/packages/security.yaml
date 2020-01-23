@@ -11,7 +11,8 @@ security:
             entity:
                 class: Core\Entity\User
                 property: email
-
+                
+    # bcrypt use unique_id of user to encrypt password in db
     encoders:
         Core\Entity\Admin: bcrypt
         Core\Entity\User: bcrypt
@@ -45,6 +46,7 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    # these aren't real roles (just defaults symfony session flag)
     access_control:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }

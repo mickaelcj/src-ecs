@@ -1,5 +1,5 @@
 Core\Entity\User:
-  user{1..250}:
+  user{1..50}:
     name: '<name()>'
     uniqueId (unique): '<userUniqueId()>'
     email (unique): '<email()>'

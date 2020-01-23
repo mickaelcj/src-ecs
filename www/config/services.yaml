@@ -9,6 +9,8 @@ imports:
 parameters:
     locale: 'fr'
     website_name: Ecoservice
+
+    # perf
     container.dumper.inline_factories: true
 
 services:
