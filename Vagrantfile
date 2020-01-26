@@ -19,7 +19,7 @@ folder           = debug ? '/vagrant' : '/tmp'
 web_dir          = "/data/#{conf['projectname']}/#{conf['web_path']}"
 # nfs config
 conf['nfs'] = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux?
-NFS_ENABLED = conf['nfs'] && ARGV[1] != '--provision' && (File.exist? File.dirname(__FILE__) + "/.vagrant/machines/default/virtualbox/action_provision")
+NFS_ENABLED = !conf['nfs_force_disable'] && conf['nfs'] && ARGV[1] != '--provision' && (File.exist? File.dirname(__FILE__) + "/.vagrant/machines/default/virtualbox/action_provision")
 # ssl config
 hosts            = ""
 
@@ -34,7 +34,7 @@ Vagrant.require_version ">= 2.2.2"
 
 Vagrant.configure(2) do |config|
   config.vm.box = os
-  
+
   id_rsa_path        = File.join(Dir.home, ".ssh", "id_rsa")
   id_rsa_ssh_key     = File.read(id_rsa_path)
   id_rsa_ssh_key_pub = File.read(File.join(Dir.home, ".ssh", "id_rsa.pub"))
@@ -69,8 +69,8 @@ Vagrant.configure(2) do |config|
     rm -rf /tmp/#{playbook_name} || true
     git clone #{playbook} /tmp/#{playbook_name}
     SCRIPT
-    
-    config.vm.provision "shell", inline: $init, privileged: false  
+
+    config.vm.provision "shell", inline: $init, privileged: false
   end
 
   ## Install and configure software
@@ -82,17 +82,19 @@ Vagrant.configure(2) do |config|
       ansible.extra_vars = conf
   end
 
+    if Vagrant::Util::Platform.darwin? && !Vagrant.has_plugin?('vagrant-bindfs')
+        exit "please run : vagrant plugin install vagrant-bindfs"
+    end
+
   if NFS_ENABLED
     # NFS config / bind vagrant user to nfs mount
     if Vagrant::Util::Platform.darwin?
-        config.vm.synced_folder "./www", "#{web_dir}", type: "nfs", nfs_version: 3, nfs_udp: true,
-        mount_options: ['rw','fsc','noac','actimeo=1','async'],
-        linux__nfs_options: ['rw','all_squash','insecure','no_subtree_check','async']
-        # fix bad user binding when mounting from OS X catalina / mojave
-        config.vm.provision :shell, :inline => "sudo bindfs --map=501/vagrant:@dialout/@vagrant --perms=u=rwx,g=rx,o=rx #{web_dir} #{web_dir}", run: 'always'
+        config.vm.synced_folder "./www", web_dir, nfs: true, mount_options: ['rw','tcp','fsc','nolock','noacl','actimeo=2'],
+        linux__nfs_options: ['rw','no_subtree_check','all_squash','async']
+        config.bindfs.bind_folder web_dir, web_dir
     else
       # linux nfs 4 server
-      config.vm.synced_folder "./www", "#{web_dir}", type: "nfs", nfs_version: 4, nfs_udp: false, mount_options: ['rw','noac','actimeo=2']
+      config.vm.synced_folder "./www", web_dir, nfs: true, nfs_version: 4, nfs_udp: false, mount_options: ['rw','noac','actimeo=2','nolock']
     end
   else
     # reload nfs / shared folder after provision
