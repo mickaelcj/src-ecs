@@ -11,7 +11,14 @@ security:
             entity:
                 class: Core\Entity\User
                 property: email
-                
+
+    role_hierarchy:
+        ROLE_PRO: [ROLE_USER]
+        ROLE_MARKETING: [ROLE_ADMIN]
+        ROLE_EMPLOYEE: [ROLE_ADMIN]
+        ROLE_SUBADMIN: [ROLE_ADMIN]
+        ROLE_SUPERADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
     # bcrypt use unique_id of user to encrypt password in db
     encoders:
         Core\Entity\Admin: bcrypt
