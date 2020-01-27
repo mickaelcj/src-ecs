@@ -1,0 +1,61 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
+    build:
+        #machine:
+                #docker_layer_caching: true
+        docker:
+            # Specify the version you desire here
+            -   image: circleci/php:7.4-node-browsers
+            #- image: circleci/mariadb:10.4-ram
+
+        parallelism: 3
+
+        working_directory: ~/src-ecs
+
+        environment:
+            APP_ENV: dev
+            APP_DEBUG: test
+            MYSQL_URL: mysql://EmwnLitSLR:Gk0qCm6hFI@remotemysql.com/EmwnLitSLR
+
+        steps:
+            - checkout
+            -   run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+            -   run: sudo docker-php-ext-install zip
+            -   run: mv ./www/config/parameters.yaml.dist ./www/config/parameters.yaml
+
+            # Download and cache dependencies
+            -   restore_cache:
+                    keys:
+                        # "composer.lock" can be used if it is committed to the repo
+                        - v1-dependencies-{{ checksum "./www/composer.lock" }}
+                        # fallback to using the latest cache if no exact match is found
+                        - v1-dependencies-
+
+            -   run: composer install -d ./www -n --prefer-dist --no-scripts
+
+            -   save_cache:
+                    key: v1-dependencies-{{ checksum "./www/composer.lock" }}
+                    paths:
+                        - ./www/vendor
+            -   restore_cache:
+                    keys:
+                        - node-v1-{{ checksum "./www/yarn.lock" }}
+                        - node-v1-
+
+            -   run: yarn --cwd ./www/ install
+
+            -   save_cache:
+                    key: node-v1-{{ checksum "./www/yarn.lock" }}
+                    paths:
+                        - ./www/node_modules
+            - run: yarn --cwd ./www/ dev
+
+            # - run: make db_update_local
+            # - run: ./vendor/bin/phpunit
+
+            -   store_artifacts:
+                    path: /tmp/artifacts

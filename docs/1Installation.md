@@ -78,7 +78,7 @@ Petite amélioration de performance avec : `git config core.preloadindex true`
 ## SSL
 On prévoit par la suite mettre en place un certificat autosigné
 
-`./config.yaml` &rarr; `ssl: yes`
+`./vm_config.yaml` &rarr; `ssl: yes`
 
 - Le **certificat** : 
 > `scp -P 22 root@ecoservice.dev:/etc/ssl/ecoservice.dev/pkcs12.pfx docs/cert/` (mdp: vagrant)

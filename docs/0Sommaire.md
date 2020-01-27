@@ -11,13 +11,13 @@
 - [Front end](2Stack.md#stack-front-end)
 - [Stack Back-end](2Stack.md#stack-back-end)
 
-## [3 - Git Flow](GitFlow.md)
+## [3 - Git Flow](3GitFlow.md)
 
-- [Mise en place des remotes](GitFlow.md#remotes)
-- [Branches](GitFlow.md#branches)
-- [Environnement](GitFlow.md#environments)
-- [Mettre à jour sa branche](GitFlow.md#majbranche)
-- [Pull requests](GitFlow.md#environments)
+- [Mise en place des remotes](3GitFlow.md#remotes)
+- [Branches](3GitFlow.md#branches)
+- [Environnement](3GitFlow.md#environments)
+- [Mettre à jour sa branche](3GitFlow.md#majbranche)
+- [Pull requests](3GitFlow.md#environments)
 
 ## [4 - Tests](4Tests.md)
 
