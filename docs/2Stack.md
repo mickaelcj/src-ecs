@@ -31,7 +31,7 @@ Un simple clic droit sur `www/` donnera des options de synchro (`deployment > do
 ## Base de données
 
 Base *locale* pour travailler seul 
-> non utilisée par défaut
+> utilisée par défaut
 - host : localhost ou 127.0.0.1
 - port : 3366
 - user : ecs_user
@@ -39,6 +39,12 @@ Base *locale* pour travailler seul
 - db: ecommerce
 
 #### Pas de phpmyadmin, utilisez plutôt l'outil `base de donnée` phpstorm
+
+---
+
+![sgbd](res/bd.png)
+
+---
 
 > base distante pour se partager les donnée entre nous
 - mysql_host: `remotemysql.com`

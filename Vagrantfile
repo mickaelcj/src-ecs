@@ -4,7 +4,7 @@
 require 'yaml'
 
 current_dir      = File.dirname(File.expand_path(__FILE__))
-yml              = YAML.load_file("#{current_dir}/config.yaml")
+yml              = YAML.load_file("#{current_dir}/vm_config.yaml")
 conf, vm         =  yml['conf'], yml['vm']
 # If you're on a new build of Windows 10 you can try to use NFS
 os               = "bento/debian-" + conf['os']
