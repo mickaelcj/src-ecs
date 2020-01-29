@@ -4,6 +4,7 @@
     - products
     - homepage
     - accounting
+    - company
   ext: ts
 
 - name: easyadmin

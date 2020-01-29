@@ -1,0 +1,26 @@
+{% extends 'front_office/layout.html.twig' %}
+
+{% block links %}
+  {{ encore_entry_link_tags('company', null, 'front_office') }}
+{% endblock %}
+
+{% block main %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        {% include 'front_office/partials/flash-messages.html.twig' %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h1>L'entreprise<span class="fa fa-heart">!</span></h1>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ encore_entry_script_tags('company', null, 'front_office') }}
+{% endblock %}
