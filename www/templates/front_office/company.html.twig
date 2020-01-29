@@ -5,19 +5,16 @@
 {% endblock %}
 
 {% block main %}
-
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        {% include 'front_office/partials/flash-messages.html.twig' %}
+  <div class="top-page">
+      <div>
+          <h1>L'entreprise</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ligula tellus, varius eu velit eu, pellentesque fringilla urna.</p>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <h1>L'entreprise<span class="fa fa-heart">!</span></h1>
+      <div>
+          <img src="{{ asset('images/green-company.png') }}">
       </div>
-    </div>
   </div>
+
 
 {% endblock %}
 
