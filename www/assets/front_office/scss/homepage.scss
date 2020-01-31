@@ -6,7 +6,7 @@ main{
     article{
       padding: 0 0 0 $basicPadding;
       h2{
-        color: $green;
+        color: $darkGreen;
         font-size: 5rem;
         width: 80%;
         padding: 0 0 16px 0;
@@ -20,7 +20,7 @@ main{
         margin-top: 32px;
         padding: 24px 64px;
         font-size: 1.2rem;
-        border: solid 4px $green;
+        border: solid 4px $darkGreen;
       }
     }
     div{
@@ -91,13 +91,13 @@ main{
         display: none;
       }
       article{
-        color: $lightgrey;
+        color: $lightGrey;
         max-width: 100%;
         h2{
           font-size: 4rem;
           width: 80%;
           padding: 16px 0 16px 0;
-          color: $lightgrey;
+          color: $lightGrey;
           border-bottom: 2px solid lightgrey ;
         }
         p{
@@ -106,8 +106,8 @@ main{
         }
         button{
           margin: 32px 0px;
-          color: $lightgrey;
-          border-color: $lightgrey;
+          color: $lightGrey;
+          border-color: $lightGrey;
         }
       }
     }
@@ -173,7 +173,7 @@ main{
       margin-top: 64px;
       padding: 16px 48px;
       font-size: 1.2rem;
-      border: solid 4px $green;
+      border: solid 4px $darkGreen;
     }
 
     @media screen and (max-width: 1024px) {
@@ -205,7 +205,7 @@ main{
   }
   #pro_parti {
     margin-top: 2rem;
-    color: $lightgrey;
+    color: $lightGrey;
     article {
       padding: 64px $basicPadding*6;
 
@@ -223,8 +223,8 @@ main{
         margin-top: 64px;
         padding: 16px 48px;
         font-size: 2rem;
-        color: $lightgrey;
-        border: solid 4px $lightgrey;
+        color: $lightGrey;
+        border: solid 4px $lightGrey;
       }
     }
 

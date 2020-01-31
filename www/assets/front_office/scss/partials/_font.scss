@@ -1,5 +1,10 @@
 // Gelasio
 @font-face {
+  font-family: "Gelasio";
+  src: url("../../font/Gelasio/Gelasio-Regular.ttf");
+}
+
+@font-face {
   font-family: "Gelasio Bold";
   src: url("../../font/Gelasio/Gelasio-Bold.ttf");
 }
@@ -7,6 +12,10 @@
 @font-face {
   font-family: "Gelasio SemiBold";
   src: url("../../font/Gelasio/Gelasio-SemiBold.ttf");
+}
+
+.gel{
+  font-family: "Gelasio";
 }
 
 .gel-bold{
@@ -26,7 +35,7 @@
 
 @font-face {
   font-family: "Poppins Bold";
-  src: url("../../font/Poppins/Poppins-Regular.ttf");
+  src: url("../../font/Poppins/Poppins-Bold.ttf");
 }
 
 .pop{
