@@ -10,28 +10,13 @@
 1. [Base(s) de données](#base-de-données)
 2. [Front end](#stack-front-end)
 3. [Stack Back-end](#stack-back-end)
-
-### Attention 
-
-Les commandes de `composer` et `yarn`, doivent être éxecutées ***SEULEMENT DANS LA VM***.
-
-> !! **On n'utilise pas `npm`** sinon on risque de créer des bugs et conflits avec `yarn`
-
-#### `+` Verifiez bien la synchronisation des fichiers avec votre VM :
-#### Les fichiers à vérifier:
-- le `package.json` de la VM pour les module js (yarn)
-- le `composer.json` pour les modules php composer
-- les fichiers `composer.lock` et `yarn.lock
-
-![sources](res/upload_sources.png)
-
-Après un changement de branche il faut upload vos sources : <br> 
-Un simple clic droit sur `www/` donnera des options de synchro (`deployment > download` sur php-storm)
+4. [Api](#api-rest)
 
 ## Base de données
 
 Base *locale* pour travailler seul 
 > utilisée par défaut
+- type de base : `mariadb(mysql8)`
 - host : localhost ou 127.0.0.1
 - port : 3366
 - user : ecs_user
@@ -47,12 +32,13 @@ Base *locale* pour travailler seul
 ---
 
 > base distante pour se partager les donnée entre nous
+- type de base : `mysql8`
 - mysql_host: `remotemysql.com`
 - mysql_user: `EmwnLitSLR`
 - mysql_pw: `Gk0qCm6hFI`
 - mysql_db: `eEmwnLitSLR`
 
-#### [**lien vers Phpmyadmin**](https://remotemysql.com/phpmyadmin/index.php)
+#### [**lien vers Phpmyadmin**](https://remotemysql.com/phpmyadmin/index.php?db=EmwnLitSLR)
 
 Pour partager et récupérer les données il existe des scripts simples dans le `Makefile`
 > Par exemple pour ajouter nos données à la base distante on fait *dans la VM* `cd ../ && make db_update_remote`
@@ -68,11 +54,14 @@ Pour partager et récupérer les données il existe des scripts simples dans le 
   - `doctrine.yaml` définit l'utilisation de la base de donnée. On mappe des entité avec des alias pour les réutiliser dans les autres espaces de l'appli.
   - `twig.yaml` Mettre en place des skins préféfinis de formulaires et injecter des variables dans les vues
   - Le fichier `parameters.yaml` uniqument dans la VM donne des variables de configurations (url base de donnée, mail...)
+  - `bundles.php` Instancier des bundles dans notre projet
 
 - `fixtures`
   - Générées avec faker elle nous permettent de créer des données facilement
   
 ## Stack Front-end
+
+[MAQUETTES](https://xd.adobe.com/view/357d342a-d937-4075-650b-0f456122b3b6-434c/)
 
 La team front travaille dans les répertoire `assets` et `templates`.
 
@@ -82,6 +71,14 @@ On utilise *Typescript* à la place de javascript et sass
 - `yarn dev` : Build tout le projet
 - `yarn fo` : Build le front-office
 - `yarn admin` : Build de l'espace admin
+- Ajoutez `--watch` pour écouter les nouvelles modifs
+
+**Avancé :**
+
+- `fo-watch`: watch l'espace front 
+- `require('@fr/')` &rarr; alias pour `front_office/ts`
+- `require('#fr/')` &rarr; alias pour `front_office/scss`
+- `require('#ea/')` &rarr; alias pour `easyadmin/scss`
 
 Voici l'organisation du projet par espaces:
 
@@ -121,8 +118,8 @@ Pour changer l'interface du back-office: [doc easyadmin](https://symfony.com/doc
              --> Réorganiser les templates à votre façon mais bien garder les noms de fichiers
 ```
 
-Pour ajouter une entrée (page) à l'index des assets `css` et `ts` ça se passe dans
-`config/pages.yaml`. Vérifier bien que les noms soient bien les mêmes que ceux des fichiers d'entrée dans `assets/<espace>/<page>.ts`.
+Pour ajouter une entrée (page) à l'index des assets `css`, `ts` ou `js` ça se passe dans
+`config/pages.yaml`. Vérifier bien que les noms soient bien les mêmes que ceux des fichiers d'entrée dans `assets/<espace>/<page>[.ts|js]`.
 
 Pour la convention de code javascript, suivre [**cette page**](https://github.com/ryanmcdermott/clean-code-javascript#introduction)
 
@@ -145,12 +142,24 @@ Dans le dossier `src`:
 - Des validateurs personnalisés
 
 2. **FrontOffice** (FrontOffice) 
-- Pas grand chose à faire à par créer des routes, des pages et s'assurer que les actions API sont disponibles (exemple ajouter un produit au panier : `/product/{id}/add`)
+- Créer des routes, controlleurs, des pages et créer des actions 
+[Api](#api-rest) à utilisez en front<br>
+Par exemple ajouter un produit au panier : `/product/{id}/add`
 
 3. **Admin** (BackOffice), Configuration easyadmin : `config/packages/easyadmin.yaml`
 - Easyadmin nous permet de facilement créer des CRUD et des entités
 
 <!-- Suivez les règles automatiques de `phpcbf` et `phpcs` (pas encore installé mais ça vient) -->
 
+## API Rest
+
+Voici un [tutoriel](https://medium.com/q-software/symfony-5-the-rest-the-crud-and-the-swag-7430cb84cd5
+) pour créer des API afin de gérer les données côté front office, par exemple :
+
+- Ajout d'un commentaire 
+- Ajout d'un produit au panier
+- Affichage des produits<br>
+...
+
 ---
-### <center>[Retour au sommaire &#8617;](0Sommaire.md)</center>
+[&larr; retour à **l'installation**](1Installation.md) &nbsp;&nbsp; | &nbsp;&nbsp; [**GitFlow** &rarr;](3GitFlow.md)

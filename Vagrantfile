@@ -4,9 +4,16 @@
 require 'yaml'
 
 current_dir      = File.dirname(File.expand_path(__FILE__))
+
+if(!File.exist?("#{current_dir}/vm_config.yaml"))
+  puts "You need a file named vm_config.yaml, don't delete vm_config.dist.yaml"
+  exit
+end
+
 yml              = YAML.load_file("#{current_dir}/vm_config.yaml")
 conf, vm         =  yml['conf'], yml['vm']
 # If you're on a new build of Windows 10 you can try to use NFS
+# os, box_version  = conf['os'], conf['box_version']
 os               = "bento/debian-" + conf['os']
 # book repo
 playbook_name    = "playbook-#{conf['projectname']}"
@@ -28,12 +35,12 @@ if !Vagrant.has_plugin?('vagrant-hostmanager')
   exit
 end
 hosts << conf['servername'] << " "
-hosts << "api." << conf['servername'] << " "
 
 Vagrant.require_version ">= 2.2.2"
 
 Vagrant.configure(2) do |config|
   config.vm.box = os
+  #config.vm.box_version = "10.0.0"
 
   id_rsa_path        = File.join(Dir.home, ".ssh", "id_rsa")
   id_rsa_ssh_key     = File.read(id_rsa_path)
@@ -67,7 +74,7 @@ Vagrant.configure(2) do |config|
     $init = <<-SCRIPT
     sudo apt -y install git
     rm -rf /tmp/#{playbook_name} || true
-    git clone #{playbook} /tmp/#{playbook_name}
+    git clone #{playbook} /tmp/#{playbook_name} && cd /tmp/#{playbook_name} && git reset --hard origin/#{conf['playbook_version']}
     SCRIPT
 
     config.vm.provision "shell", inline: $init, privileged: false
@@ -82,14 +89,15 @@ Vagrant.configure(2) do |config|
       ansible.extra_vars = conf
   end
 
-    if Vagrant::Util::Platform.darwin? && !Vagrant.has_plugin?('vagrant-bindfs')
-        exit "please run : vagrant plugin install vagrant-bindfs"
+    if NFS_ENABLED && Vagrant::Util::Platform.darwin? && !Vagrant.has_plugin?('vagrant-bindfs')
+        puts "please run : vagrant plugin install vagrant-bindfs"
+        exit
     end
 
   if NFS_ENABLED
     # NFS config / bind vagrant user to nfs mount
     if Vagrant::Util::Platform.darwin?
-        config.vm.synced_folder "./www", web_dir, nfs: true, mount_options: ['rw','tcp','fsc','nolock','noacl','actimeo=2'],
+        config.vm.synced_folder "./www", web_dir, nfs: true, mount_options: ['rw','tcp','fsc','async','noatime','rsize=8192','wsize=8192','noacl','actimeo=2'],
         linux__nfs_options: ['rw','no_subtree_check','all_squash','async']
         config.bindfs.bind_folder web_dir, web_dir
     else

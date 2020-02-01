@@ -1,20 +1,20 @@
 <?php
 
-namespace FrontOffice\Entity;
+namespace Admin\Entity;
 
 use Core\Entity\IdTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ShipmentType
+ * ProductType
  *
- * @ORM\Table(name="shipment_type")
+ * @ORM\Table(name="product_type")
  * @ORM\Entity
  */
-class ShipmentType
+class ProductType
 {
     use IdTrait;
-
+    
     /**
      * @var string
      *
