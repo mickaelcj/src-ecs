@@ -74,4 +74,9 @@ class Stock
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return __CLASS__ . '#' . $this->getInStock();
+    }
 }
