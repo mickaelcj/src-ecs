@@ -7,8 +7,10 @@ easy_admin:
     datetime: 'Y-m-d H:i:s'
 
   entities:
+
     Product:
       class: Admin\Entity\Product
+      controller: Admin\Controller\ProductController
       label: 'Products'
       list:
         title: 'Product'
@@ -19,7 +21,6 @@ easy_admin:
           - price_per_unit
           - promo
         actions: ['show', 'edit', 'delete']
-
       show:
         fields:
           - id
@@ -38,7 +39,7 @@ easy_admin:
           - price_per_unit
           - product_short_desc
           - promo
-          - product_type_id
+          - product_category_id
 
     Shipment:
       class: FrontOffice\Entity\Shipment
@@ -57,7 +58,6 @@ easy_admin:
           - client
           - payment_type
         actions: ['show', 'edit', 'delete']
-
       show:
         fields:
           - id

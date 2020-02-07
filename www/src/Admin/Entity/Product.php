@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Product
  *
- * @ORM\Table(name="product", indexes={@ORM\Index(name="product_product_type", columns={"product_type_id"})})
+ * @ORM\Table(name="product", indexes={@ORM\Index(name="product_product_category", columns={"product_category_id"})})
  * @ORM\Entity
  */
 class Product
@@ -58,15 +58,15 @@ class Product
     private $promo;
 
     /**
-     * @var ProductType
+     * @var ProductCategory
      *
-     * @ORM\ManyToOne(targetEntity="ProductType")
+     * @ORM\ManyToOne(targetEntity="ProductCategory")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="product_type_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="product_category_id", referencedColumnName="id")
      * })
      */
-    private $productType;
-    
+    private $productCategory;
+
     public function getProductName(): ?string
     {
         return $this->productName;
@@ -139,14 +139,14 @@ class Product
         return $this;
     }
 
-    public function getProductType(): ?ProductType
+    public function getProductCategory(): ?ProductCategory
     {
-        return $this->productType;
+        return $this->productCategory;
     }
 
-    public function setProductType(?ProductType $productType): self
+    public function setProductCategory(?ProductCategory $productCategory): self
     {
-        $this->productType = $productType;
+        $this->productCategory = $productCategory;
 
         return $this;
     }

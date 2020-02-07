@@ -11,9 +11,14 @@ Core\Entity\User:
     address: '<address()>'
     company_name: '<company()>'
 
-Admin\Entity\ProductType:
-  product_type{1..15}:
-    type_name: '<word()>'
+Admin\Entity\ProductCategory:
+  product_category{1..15}:
+    category_name: '<word()>'
+
+Admin\Entity\ProductVariant:
+  product_variant{1..70}:
+    variant: '[variant1 => value1, variant2 => value2]'
+    stock: '<numberBetween(1,16)>'
 
 Admin\Entity\Product:
   product{1..70}:
@@ -23,7 +28,9 @@ Admin\Entity\Product:
     price_per_unit: '<randomFloat(2,0,2)>'
     product_short_desc: '<sentence()>'
     promo: '<numberBetween(1,100)>'
-    product_type: '@product_type<numberBetween(1, 15)>'
+    product_category: '@product_category<numberBetween(1, 15)>'
+    product_variant_id: '<numberBetween(1,1000)>'
+
 
 Admin\Entity\Stock:
   stock{1..70}:
