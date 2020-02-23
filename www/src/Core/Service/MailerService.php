@@ -2,8 +2,10 @@
 
 namespace Core\Service;
 
+use Core\Entity\User;
 use Core\Entity\Admin;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
@@ -96,5 +98,17 @@ class MailerService
             'subject' => $subject,
             'payload' => $payload
         ]);
+    }
+
+    public function twigSend(string $subject, User $user, string $template)
+    {
+        try{
+            $message = $this->createTwigMessage($subject, $template);
+            $this->send($message, $user->getEmail());
+        } catch (TransportException | \Exception $e){
+            return $e->getMessage();
+        }
+        
+        return 'Mail successfully sent';
     }
 }
