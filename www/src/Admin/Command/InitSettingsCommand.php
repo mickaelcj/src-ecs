@@ -10,23 +10,21 @@ use Admin\Entity\Settings;
 use Admin\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class InitSettingsCommand extends Command
 {
     const UNIQUE_ROW_ID  = 1;
-    const DB_INIT = 'db_rebuild';
     
-    private $em;
+    private $doctrine;
     
     private $makePath;
     
-    public function __construct(Registry $em, string $makePath)
+    public function __construct(Registry $doctrine, string $makePath)
     {
-        $this->em = $em;
+        $this->doctrine = $doctrine;
         $this->makePath = $makePath;
         
         parent::__construct();
@@ -36,54 +34,46 @@ class InitSettingsCommand extends Command
     
     protected function configure()
     {
-        $this->setDescription('init all app requirements');
+        $this->setDescription('init app settings');
+        $this->addOption('fillSettings', 'f',InputOption::VALUE_OPTIONAL,'fill settings with last items.', false);
     }
     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $entityManager = $this->em->getManager();
-        $actualSettings = $this->em->getRepository(Settings::class)
+        $actualSettings = $this->doctrine->getRepository(Settings::class)
            ->find(self::UNIQUE_ROW_ID);
         
         if($actualSettings){
-            $this->makefileInits();
+            echo "Settings already here - [SKIPPING] \n";
             return 0;
         }
+        
+        $this->createSiteSettings($input->getOption('fillSettings'));
+        echo "Settings created \n";
+        return 0;
+    }
     
+    public function createSiteSettings(bool $fillSettings = true)
+    {
+        $entityManager = $this->doctrine->getManager();
+        
         $settings = (new Settings())
-           ->setHomeProducts($this->getLastItems(Product::class, 4))
-           ->setHomeDiys($this->getLastItems(Diy::class, 4))
-           ->setHeadlineCmsPages($this->getLastItems(CmsPage::class,2))
-           ->setFooterCmsPages($this->getLastItems(CmsPage::class,2))
+           //->setHomeProducts($fillSettings ? $this->getLastItems(Product::class, 4) : null)
+           ->setHomeDiys($fillSettings ? $this->getLastItems(Diy::class, 4) : null)
+           ->setHeadlineCmsPages($fillSettings ? $this->getLastItems(CmsPage::class,2) : null)
+           ->setFooterCmsPages($fillSettings ?  $this->getLastItems(CmsPage::class,2) : null)
            ->setId();
     
         $entityManager->persist($settings);
         $entityManager->flush();
-        
-        return 0;
     }
     
-    private function getLastItems($entity, $qty){
-        return $this->em->getRepository($entity)->findBy(
+    protected function getLastItems($entity, $qty){
+        return $this->doctrine->getRepository($entity)->findBy(
            [],
            ['createdAt' => 'ASC'],
            $qty,
            0
         );
-    }
-    
-    private function makefileInits()
-    {
-        $process = new Process(['make','-C', $this->makePath, self::DB_INIT]);
-        $process->run(null, [
-           'db_rebuild' => self::DB_INIT,
-           'make_path' => $this->makePath
-        ]);
-        
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-    
-        echo "Successful created project";
     }
 }

@@ -11,7 +11,7 @@ easy_admin:
                     - { type: 'group', css_class: 'col-sm-4' }
                     - { property: 'headlineCmsPages', type: 'easyadmin_autocomplete', label: 'settings.cmsPages', dql_filter: 'entity.isActive = true' }
                     - { type: 'group', css_class: 'col-sm-4' }
-                    - { property: 'homeProducts', type: 'easyadmin_autocomplete', label: 'settings.products', dql_filter: 'entity.isActive = true' }
+                    #- { property: 'homeProducts', type: 'easyadmin_autocomplete', label: 'settings.products', dql_filter: 'entity.isActive = true' }
                     - { property: 'homeDiys', type: 'easyadmin_autocomplete', label: 'settings.diy', dql_filter: 'entity.isActive = true' }
                     - { type: 'group', css_class: 'col-sm-4' }
                     - { property: 'footerCmsPages', type: 'easyadmin_autocomplete', label: 'settings.footer_pages', dql_filter: 'entity.isActive = true' }
