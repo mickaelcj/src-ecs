@@ -12,26 +12,33 @@ end
 
 yml              = YAML.load_file("#{current_dir}/vm_config.yaml")
 conf, vm, rsync_exclude         = yml['conf'], yml['vm'], yml['rsync_exclude']
-# bento is an old debian build
 os               = conf['box'] ? conf['box'] : "loic-roux-404/deb-g4"
+
 # book repo
 playbook_name    = "playbook-#{conf['projectname']}"
 playbook         = "https://github.com/#{conf['org']}/#{playbook_name}.git"
+
 ### work path variable to change in debug mode
 # Be aware of shared folders when deleting things
 debug            = conf['debug_playbook']
 folder           = debug ? '/data' : '/tmp'
 web_dir          = "/data/#{conf['projectname']}/#{conf['web_path']}"
+
+# provision status
+IS_PROVISIONNING = ARGV[1] == '--provision' 
+PROVISIONNED     = File.exist? File.dirname(__FILE__) + "/.vagrant/machines/default/virtualbox/action_provision"
+
 # nfs config
 conf['nfs'] = Vagrant::Util::Platform.darwin? || Vagrant::Util::Platform.linux?
-NFS_ENABLED = !conf['nfs_force_disable'] && conf['nfs'] && ARGV[1] != '--provision' && (File.exist? File.dirname(__FILE__) + "/.vagrant/machines/default/virtualbox/action_provision")
-# ssl config
+NFS_ENABLED = !conf['nfs_force_disable'] && conf['nfs'] && !IS_PROVISIONNING  && PROVISIONNED
+
 hosts            = ""
 
 if !Vagrant.has_plugin?('vagrant-hostmanager')
   puts "The vagrant-hostmanager plugin is required. Please install it with \"vagrant plugin install vagrant-hostmanager\""
   exit
 end
+
 hosts << conf['servername'] << " "
 
 Vagrant.require_version ">= 2.2.2"
@@ -93,7 +100,7 @@ Vagrant.configure(2) do |config|
   if !NFS_ENABLED
     config.vm.synced_folder "./", "/data/ecs", type: "rsync",
         rsync__auto: true,
-        rsync__args: ["--archive", "--delete", "--no-owner", "--no-group","-q"],
+        rsync__args: ["--archive", "--delete", "--no-owner", "--no-group","-q", "-W"],
         rsync__exclude: rsync_exclude
   end
 
@@ -122,6 +129,6 @@ Vagrant.configure(2) do |config|
 
   # fix ssh common issues
   ssh_path = "/home/vagrant/.ssh"
-  config.vm.provision :shell, :inline => "echo '#{id_rsa_ssh_key }' > #{ssh_path}/id_rsa && chmod 600 #{ssh_path}/id_rsa"
-  config.vm.provision :shell, :inline => "echo '#{id_rsa_ssh_key_pub }' > #{ssh_path}/authorized_keys && chmod 600 #{ssh_path}/authorized_keys"
+  config.vm.provision :shell, :inline => "echo '#{id_rsa_ssh_key}' > #{ssh_path}/id_rsa && chmod 600 #{ssh_path}/id_rsa"
+  config.vm.provision :shell, :inline => "echo '#{id_rsa_ssh_key_pub}' > #{ssh_path}/authorized_keys && chmod 600 #{ssh_path}/authorized_keys"
 end
