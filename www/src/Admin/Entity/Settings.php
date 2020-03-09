@@ -2,72 +2,44 @@
 
 namespace Admin\Entity;
 
+use Core\Entity\Traits\Id;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Core\Entity\Model\Sluggable;
 
 /**
  * @ORM\Entity(repositoryClass="Admin\Repository\SettingsRepository")
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\ChangeTrackingPolicy("NOTIFY")
  */
 class Settings
-
 {
+    use Id;
+
     /**
-     * @ORM\Id
-     * @ORM\Column(type="smallint", length=1, options={"default" : 0})
-     */
-    private $id = 0;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Core\Entity\Model\Sluggable", mappedBy="settingsHome", cascade={"persist"})
-     * @Assert\Unique(message="validator.generics.in_collection_exist")
+     * @ORM\OneToMany(targetEntity="Admin\Entity\Diy", mappedBy="settingHome", cascade={"persist"})
      */
     private $homeDiys;
-    
+
     /**
-     * @ORM\OneToMany(targetEntity="Core\Entity\Model\Sluggable", orphanRemoval=true, mappedBy="settingsHeadline")
-     * @Assert\Unique(message="validator.generics.in_collection_exist")
+     * @ORM\OneToMany(targetEntity="Admin\Entity\CmsPage", mappedBy="settingHome", cascade={"persist"})
+     * @ORM\JoinColumns(
+     *     @ORM\JoinColumn(name="setting_id", referencedColumnName="id")
+     * )
      */
-    private $headlineCmsPages;
-    
+    private $homeCmsPages;
+
     /**
-     * @ORM\OneToMany(targetEntity="Core\Entity\Model\Sluggable", orphanRemoval=true, mappedBy="settingsFooter")
-     * @Assert\Unique(message="validator.generics.in_collection_exist")
+     * @ORM\OneToMany(targetEntity="Admin\Entity\Product",  mappedBy="settingHome", cascade={"persist"})
      */
-    private $footerCmsPages;
-    
+    private $homeProducts;
+
     public function __construct()
     {
         $this->homeDiys = new ArrayCollection();
-        $this->headlineCmsPages = new ArrayCollection();
-        $this->footerCmsPages = new ArrayCollection();
+        $this->homeCmsPages = new ArrayCollection();
+        $this->homeProducts = new ArrayCollection();
     }
-    
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    /**
-     * @return Settings
-     */
-    public function setId(): Settings
-    {
-        if ($this->id === 1) {
-            return $this;
-        }
-        
-        $this->id = 1;
-        
-        return $this;
-    }
-    
+
     /**
      * @return Collection|Diy[]
      */
@@ -75,138 +47,89 @@ class Settings
     {
         return $this->homeDiys;
     }
-    
+
     public function addHomeDiy(Diy $homeDiy): self
     {
-        if(count($this->homeDiys) >= 4) {
-            return new \Exception("maximum.error");
-        }
-        
         if (!$this->homeDiys->contains($homeDiy)) {
             $this->homeDiys[] = $homeDiy;
-            $homeDiy->setSettingsHome($this);
+            $homeDiy->setSettingHome($this);
         }
-        
+
         return $this;
     }
-    
+
     public function removeHomeDiy(Diy $homeDiy): self
     {
         if ($this->homeDiys->contains($homeDiy)) {
             $this->homeDiys->removeElement($homeDiy);
             // set the owning side to null (unless already changed)
-            if ($homeDiy->getSettingsHome() === $this) {
-                $homeDiy->setSettingsHome(null);
+            if ($homeDiy->getSettingHome() === $this) {
+                $homeDiy->setSettingHome(null);
             }
         }
-        
-        return $this;
-    }
-    
-    /**
-     * @param mixed $homeDiys
-     * @return Settings
-     */
-    public function setHomeDiys($homeDiys)
-    {
-        $this->homeDiys = $homeDiys;
-        
-        return $this;
-    }
-    
-    /**
-     * @return Collection|CmsPage[]
-     */
-    public function getHeadlineCmsPages(): Collection
-    {
-        return $this->headlineCmsPages;
-    }
-    
-    /**
-     * @param mixed $headlineCmsPages
-     * @return Settings
-     */
-    public function setHeadlineCmsPages($headlineCmsPages)
-    {
-        $this->headlineCmsPages = $headlineCmsPages;
-        
-        return $this;
-    }
-    
-    public function addHeadlineCmsPage(CmsPage $headlineCmsPage): self
-    {
-        if(count($this->headlineCmsPages) >= 2) {
-            return new \Exception("maximum.error");
-        }
-        
-        if (!$this->headlineCmsPages->contains($headlineCmsPage)) {
-            $this->headlineCmsPages[] = $headlineCmsPage;
-            $headlineCmsPage->setSettingsHeadline($this);
-        }
-        
-        return $this;
-    }
-    
-    public function removeHeadlineCmsPage(CmsPage $headlineCmsPage): self
-    {
-        if ($this->headlineCmsPages->contains($headlineCmsPage)) {
-            $this->headlineCmsPages->removeElement($headlineCmsPage);
-            // set the owning side to null (unless already changed)
-            if ($headlineCmsPage->getSettingsHeadline() === $this) {
-                $headlineCmsPage->setSettingsHeadline(null);
-            }
-        }
-        
+
         return $this;
     }
 
     /**
      * @return Collection|CmsPage[]
      */
-    public function getFooterCmsPages(): Collection
+    public function getHomeCmsPages(): Collection
     {
-        return $this->footerCmsPages;
-    }
-    
-    /**
-     * @param object $footerCmsPages
-     * @return Settings
-     */
-    public function setFooterCmsPages($footerCmsPages)
-    {
-        $this->footerCmsPages = $footerCmsPages;
-        
-        return $this;
+        return $this->homeCmsPages;
     }
 
-    public function addFooterCmsPage(CmsPage $footerPages): self
+    public function addHomeCmsPage(CmsPage $homeCmsPage): self
     {
-        if (!$this->footerCmsPages->contains($footerPages)) {
-            $this->footerCmsPages[] = $footerPages;
-            $footerPages->setSettingsHeadline($this);
+        if (!$this->homeCmsPages->contains($homeCmsPage)) {
+            $this->homeCmsPages[] = $homeCmsPage;
+            $homeCmsPage->setSettingHome($this);
         }
 
         return $this;
     }
 
-    public function removeFooterCmsPage(CmsPage $footerPages): self
+    public function removeHomeCmsPage(CmsPage $homeCmsPage): self
     {
-        if ($this->footerCmsPages->contains($footerPages)) {
-            $this->footerCmsPages->removeElement($footerPages);
+        if ($this->homeCmsPages->contains($homeCmsPage)) {
+            $this->homeCmsPages->removeElement($homeCmsPage);
             // set the owning side to null (unless already changed)
-            if ($footerPages->getSettingsHeadline() === $this) {
-                $footerPages->setSettingsHeadline(null);
+            if ($homeCmsPage->getSettingHome() === $this) {
+                $homeCmsPage->setSettingHome(null);
             }
         }
 
         return $this;
     }
-    
+
     /**
-     * @ORM\PrePersist()
+     * @return Collection|Product[]
      */
-    public function onPrePersitFooterCmsPageAdd(){
-        dump("zigwiwiwwiw");
+    public function getHomeProducts(): Collection
+    {
+        return $this->homeProducts;
+    }
+
+    public function addHomeProduct(Product $homeProduct): self
+    {
+        if (!$this->homeProducts->contains($homeProduct)) {
+            $this->homeProducts[] = $homeProduct;
+            $homeProduct->setSettingHome($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHomeProduct(Product $homeProduct): self
+    {
+        if ($this->homeProducts->contains($homeProduct)) {
+            $this->homeProducts->removeElement($homeProduct);
+            // set the owning side to null (unless already changed)
+            if ($homeProduct->getSettingHome() === $this) {
+                $homeProduct->setSettingHome(null);
+            }
+        }
+
+        return $this;
     }
 }
-

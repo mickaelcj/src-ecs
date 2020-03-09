@@ -11,7 +11,7 @@ menu.customer:     Clients
 menu.admin:        Admin
 menu.purchase:     Ventes
 menu.about:        À propos d'EasyAdmin
-menu.blog:         Blog
+menu.marketing:    Marketing
 menu.articles.list: Listes des pages
 menu.articles.category: Catégories
 menu.settings: Paramètres
@@ -39,6 +39,7 @@ Billing address: Adresse de facturation
 Buyer: Acheteur
 Contract: Contrat
 Created at: Crée le
+Updated At: Dernière mise à jour
 Delivery date: Date de livraison
 Delivery hour: Heure de livraison
 Description: Description
@@ -94,6 +95,11 @@ menu.settings.nav: Menu
 ROLE_PRO: Professionel
 ROLE_USER: Utilisateur
 ROLE_EMPLOYEE: Employé
+
+#Blog
+Layout: Mise en page
+two-cols: 2 Colonnes
+one-col: Une colonne
 # DIY
 diy.title: Recettes Diy
 

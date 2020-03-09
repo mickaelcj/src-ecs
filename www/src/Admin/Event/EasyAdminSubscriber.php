@@ -3,31 +3,39 @@
 
 namespace Admin\Event;
 
-use Admin\Entity\CmsPage;
-use Core\Model\Sluggable;
-use Core\Helper\Slugger;
+use Admin\Entity\Settings;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
 {
+    private $slugger;
+    
+    public function __construct($slugger)
+    {
+        $this->slugger = $slugger;
+    }
     
     public static function getSubscribedEvents()
     {
-        return [
-           EasyAdminEvents::PRE_UPDATE => 'onPreUpdate',
-        ];
+        return array(
+           'easy_admin.post_initialize' => array('setSettings'),
+        );
     }
     
-    public function onPreUpdate(GenericEvent $event)
+    public function setSettings(GenericEvent $event)
     {
-        //TODO: load more specific data in easyadmin by subscribing events
         dump($event);
         $entity = $event->getSubject();
-        // TODO: create a sluggable interface
-        if ($entity instanceof Sluggable) {
-            echo "triggered sluggable entity";
+        dump($event->getSubject());
+        die;
+        
+        if (!($entity instanceof Settings)) {
+            return;
         }
+        dump($entity);
+        
+        $event['entity'] = $entity;
     }
 }

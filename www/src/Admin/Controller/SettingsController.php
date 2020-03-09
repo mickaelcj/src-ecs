@@ -2,6 +2,7 @@
 
 namespace Admin\Controller;
 
+use Admin\Command\InitSettingsCommand;
 use Admin\Entity\CmsPage;
 use Admin\Entity\Diy;
 use Admin\Entity\Settings;
@@ -12,30 +13,37 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SettingsController extends EasyAdminController
 {
-    const UNIQUE_ROW_ID  = 1;
     
-    protected function initialize(Request $request)
+    public function editSettingsAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $actualSettings = $this->getDoctrine()->getRepository(Settings::class)
-              ->find(self::UNIQUE_ROW_ID) ?? null;
+        return parent::editAction();
+    }
     
-        if($actualSettings){
-            parent::initialize($request);
-            return;
+    protected function updateSettingsEntity(Settings $settings)
+    {
+        foreach ($settings->getHomeCmsPages() as $item)
+        {
+            dump($item);
+            $item->setSettingHome($settings);
+            $this->updateEntity($item);
+            $this->persistEntity($item);
         }
     
-        $settings = (new Settings())
-           ->setHomeProducts($this->getLastItems(Product::class, 4))
-           ->setHomeDiys($this->getLastItems(Diy::class, 4))
-           ->setHeadlineCmsPages($this->getLastItems(CmsPage::class,2))
-           ->setFooterPages($this->getLastItems(CmsPage::class,2))
-           ->setId();
+        foreach ($settings->getHomeDiys() as $item)
+        {
+            $item->setSettingHome($settings);
+            $this->updateEntity($item);
+            $this->persistEntity($item);
+        }
     
-        $em->persist($settings);
-        $em->flush();
-    
-        parent::initialize($request);
+        foreach ($settings->getHomeProducts() as $item)
+        {
+            $item->setSettingHome($settings);
+            $this->updateEntity($item);
+            $this->persistEntity($item);
+        }
+        
+        $this->updateEntity($settings);
     }
     
     public function getLastItems($entity, $qty){
