@@ -159,19 +159,7 @@ class Address
 
         return $this;
     }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(?string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
+    
     public function getPurchaseShipping(): ?Purchase
     {
         return $this->purchaseShipping;
@@ -183,16 +171,11 @@ class Address
 
         return $this;
     }
-
-    public function getPurchaseBilling(): ?Purchase
+    
+    public function __toString()
     {
-        return $this->purchaseBilling;
-    }
-
-    public function setPurchaseBilling(?Purchase $purchaseBilling): self
-    {
-        $this->purchaseBilling = $purchaseBilling;
-
-        return $this;
+        $D = ' - ';
+        return $this->getUser()->getName().
+           $D.$this->getAddress().$D.$this->getCity().', '.$this->getPostCode();
     }
 }
