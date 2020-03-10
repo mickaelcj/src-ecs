@@ -5,50 +5,39 @@
 {% endblock %}
 
 {% block main %}
-    <div class="container">
-        <header class="mb-4">
-            <h1>Mon compte</h1>
-        </header>
+    <div class="container-account">
+        <div class="container-info">
+            <h1 class="gel-bold">Mon compte</h1>
 
-        <nav class="account-nav">
-            <ul class="nav nav-tabs user-account-tabs">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">Compte</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('accountPurchaseList') }}" class="nav-link active">Commandes</a>
-                </li>
-            </ul>
-        </nav>
+            <div class="btn-contain">
+                <a href="{{ path('accountPurchaseList') }}">Commandes</a>
+                <a href="{{ path('accountUpdate') }}">Edit</a>
+            </div>
 
-        {% include 'bundles/EasyAdminBundle/default/flash_messages.html.twig' %}
+            {% include 'bundles/EasyAdminBundle/default/flash_messages.html.twig' %}
+            {#  TODO julien review front  #}
+            <div class="content-account">
+                <p class="serge-bold">Nom : </p> <p class="serge">{{ account.name }}</p>
+                <p class="serge-bold">Prenom : </p> <p class="serge">{{ account.firstName }}</p>
+                <p class="serge-bold">Téléphone : </p> <p class="serge">{{ account.phoneNumber }}</p>
+                {# Adresse : {{ account.address }}#}
+                <p class="serge-bold">Email : </p> <p class="serge">{{ account.Username }}</p>
+                <p class="serge-bold">Entreprise : </p> <p class="serge">{{ account.companyName }}</p>
+            </div>
 
-        Nom : {{ account.name }}
-        <br>
-        Prenom : {{ account.firstName }}
-        <br>
-        Téléphone : {{ account.phoneNumber }}
-        <br>
-    {#    Adresse : {{ account.address }}#}
-        <br>
-        Email : {{ account.Username }}
-        <br>
-        Entreprise : {{ account.companyName }}
-        <br>
-        <a href="{{ path('accountUpdate') }}"><button type="submit" class="btn btn-lg btn-success btn-submit">Edit</button></a>
-
-        <div>
-            {% if addresses is defined %}
-                <div>
-                    {% for address in addresses  %}
-                        {{ address.firstName }} <br>
-                        {{ address.firstName }}
-                        {{ address.address}}
-                        <a href="{{ path('accountAddress', {'id': address.id } ) }}"></a>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            <a href="{{ path('accountAddress') }}">Ajouter une addresse</a>
+            <div class="btn-contain">
+                {% if addresses is defined %}
+                    <div>
+                        {% for address in addresses  %}
+                            {{ address.firstName }} <br>
+                            {{ address.firstName }}
+                            {{ address.address}}
+                            <a href="{{ path('accountAddress', {'id': address.id } ) }}"></a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <a href="{{ path('accountAddress') }}">Ajouter une addresse</a>
+            </div>
         </div>
     </div>
 
