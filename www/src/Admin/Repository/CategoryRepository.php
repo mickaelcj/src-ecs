@@ -1,21 +1,21 @@
 <?php
 namespace Admin\Repository;
 
-use Admin\Entity\Product;
+use Admin\Entity\AbstractCategory;
 use Core\Repository\DuplicateSlugTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
- * @method Product|null findOneBy(array $criteria, array $orderBy = null)
- * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CategoryRepository|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CategoryRepository[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProductRepository extends ServiceEntityRepository
+class CategoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Product::class);
+        parent::__construct($registry, AbstractCategory::class);
     }
     
     use DuplicateSlugTrait;
@@ -29,7 +29,7 @@ class ProductRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findOneBySlug(string $slug): ?Product
+    public function findOneBySlug(string $slug): ?AbstractCategory
     {
         return $this->createQueryBuilder('p')
             ->where('p.slug = :slug')
@@ -108,7 +108,7 @@ class ProductRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->select('p')
-            ->orderBy('p.createdAt', 'DESC')
+            ->orderBy('p.dateCreated', 'DESC')
             ->setMaxResults($maxResults)
             ->getQuery()
             ->getResult();

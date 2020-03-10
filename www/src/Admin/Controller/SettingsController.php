@@ -2,14 +2,9 @@
 
 namespace Admin\Controller;
 
-use Admin\Command\InitSettingsCommand;
 use Admin\Entity\CmsPage;
-use Admin\Entity\Diy;
 use Admin\Entity\Settings;
-use Admin\Entity\Product;
 use AlterPHP\EasyAdminExtensionBundle\Controller\EasyAdminController;
-use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
-use Symfony\Component\HttpFoundation\Request;
 
 class SettingsController extends EasyAdminController
 {
@@ -25,10 +20,9 @@ class SettingsController extends EasyAdminController
         {
             $item->setSettingHome($settings);
             $this->updateEntity($item);
-            $this->persistEntity($item);
         }
     
-        foreach ($settings->getHomeDiys() as $item)
+/*        foreach ($settings->getHomeDiys() as $item)
         {
             $item->setSettingHome($settings);
             $this->updateEntity($item);
@@ -40,7 +34,7 @@ class SettingsController extends EasyAdminController
             $item->setSettingHome($settings);
             $this->updateEntity($item);
             $this->persistEntity($item);
-        }
+        }*/
         
         $this->updateEntity($settings);
     }
