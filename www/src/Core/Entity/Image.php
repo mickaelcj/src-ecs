@@ -19,7 +19,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Image
 {
     use Id;
-    use Name;
     
     /**
      * @var string

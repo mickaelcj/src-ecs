@@ -25,7 +25,7 @@ easy_admin:
                     - { property: 'ean', type: 'string' }
                     - { property: 'image', type: 'image', base_path: '%ecs.path.product_images%' }
                     - features
-                    - categories
+                    - productCategories
                     - tags
                     - images
             form:
@@ -34,7 +34,7 @@ easy_admin:
                     - { property: 'name', css_class: 'large' }
                     - { property: 'description', type: 'text' }
                     - { type: 'divider' }
-                    - { property: 'productCategories', type: 'easyadmin_autocomplete', type_options: { attr: { create: true } } }
+                    - { property: 'category', type: 'easyadmin_autocomplete', type_options: { attr: { create: true } } }
                     - { type: 'group', css_class: 'col-sm-4', label: 'Product Details', icon: 'cube' }
                     - { property: 'ean', help: 'ean.help_message', type_options: { required: false } }
                     - { property: 'price', type: 'money', type_options: { currency: 'EUR' } }
@@ -49,4 +49,5 @@ easy_admin:
                     - { type: 'group', css_class: 'col-sm-4', label: 'Attachments', icon: 'paperclip' }
                     - { property: 'imageFile', type: 'vich_image', label: 'Cover',  type_options: { required: false } }
                     - { property: 'images', type: 'collection', type_options: { entry_type: 'Core\Form\ImageType' }}
+                    - { property: 'onHome', label: 'onHome', help: 'onHome.help' }
 

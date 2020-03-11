@@ -5,6 +5,8 @@ namespace Admin\Entity;
 
 use Core\Entity as CoreEn;
 use Core\Entity\Admin;
+use Core\Entity\Model\Sluggable;
+use Core\Entity\Traits\Id;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -12,20 +14,19 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * Article
  *
- * @ORM\Table(name="cms_diy", indexes={@ORM\Index(name="index_cms_page_id", columns={"id","name"})})
+ * @ORM\MappedSuperclass
+ * @ORM\Table(name="cms_diy")
  * @ORM\Entity(repositoryClass="Admin\Repository\DiyRepository")
  * @ORM\HasLifecycleCallbacks
  * @Vich\Uploadable
- *
  */
-class Diy implements \Core\Entity\Model\Sluggable
+class Diy extends AbstractSluggable
 {
+    use Id;
     // Name == title
-    use CoreEn\Traits\Name;
-    use CoreEn\Traits\Id;
     use CoreEn\Traits\DatesAt;
-    use CoreEn\Traits\Slug;
     use CoreEn\Traits\IsActive;
+    use CoreEn\Traits\ImageCollection;
     
     /**
      * @ORM\Column(type="text")
@@ -33,22 +34,32 @@ class Diy implements \Core\Entity\Model\Sluggable
     private $body;
     
     /**
+     * @ORM\Column(type="text")
+     */
+    private $summary;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $difficulty;
+    
+    /**
      * @var CoreEn\Admin
      *
      * @ORM\ManyToOne(targetEntity="Core\Entity\Admin")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="admin_id", referencedColumnName="id")
-     * })
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
     
     /**
-     * List of tags associated to the product.
-     *
-     * @var string[]
-     * @ORM\Column(type="simple_array")
+     * @ORM\Column(type="string")
      */
-    private $tags = array();
+    private $time;
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $onHome = false;
     
     /**
      * It only stores the name of the image associated with the product.
@@ -68,11 +79,6 @@ class Diy implements \Core\Entity\Model\Sluggable
      * @var File
      */
     private $imageFile;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Admin\Entity\Settings", inversedBy="homeDiys", cascade={"persist", "remove"})
-     */
-    private $settingHome;
     
     public function __construct()
     {
@@ -102,26 +108,6 @@ class Diy implements \Core\Entity\Model\Sluggable
         $this->author = $author;
         
         return $this;
-    }
-    
-    /**
-     * Set the list of the tags.
-     *
-     * @param \string[] $tags
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-    }
-    
-    /**
-     * Get the list of tags associated to the product.
-     *
-     * @return \string[]
-     */
-    public function getTags()
-    {
-        return $this->tags;
     }
     
     /**
@@ -162,14 +148,50 @@ class Diy implements \Core\Entity\Model\Sluggable
         return $this;
     }
 
-    public function getSettingHome(): ?Settings
+    public function getSummary(): ?string
     {
-        return $this->settingHome;
+        return $this->summary;
     }
 
-    public function setSettingHome(?Settings $settingHome): self
+    public function setSummary(string $summary): self
     {
-        $this->settingHome = $settingHome;
+        $this->summary = $summary;
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?int
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(int $difficulty): self
+    {
+        $this->difficulty = $difficulty;
+
+        return $this;
+    }
+
+    public function getTime(): ?string
+    {
+        return $this->time;
+    }
+
+    public function setTime(string $time): self
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    public function getOnHome(): ?bool
+    {
+        return $this->onHome;
+    }
+
+    public function setOnHome(bool $onHome): self
+    {
+        $this->onHome = $onHome;
 
         return $this;
     }

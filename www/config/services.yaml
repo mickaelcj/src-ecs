@@ -11,12 +11,17 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
         bind:
-            $emailFrom: '%env(MAILER_USER)%'
+            $emailFrom: 'env(MAILER_USER)'
             $emailName: '%website_name%'
 
     Core\:
         resource: '../src/Core/*'
         exclude:  '../src/Core/{DependencyInjection,Entity,Tests,Migrations,Kernel.php}'
+
+    core.event_sub:
+        class: Core\Event\UserAccountEventSubscriber
+        arguments:
+            - '$emailFrom'
 
     core.admin:
         class: Core\Service\AdminService
@@ -70,3 +75,8 @@ services:
         class: FrontOffice\Form\Shopping\SelectAddressType
         autowire: true
         tags: ['form.type']
+
+    FrontOffice\Twig\LoginExtension:
+        class: FrontOffice\Twig\LoginExtension
+        autowire: true
+        tags: ['twig.extension']

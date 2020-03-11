@@ -3,14 +3,17 @@ namespace FrontOffice\Controller\Shopping;
 
 use FrontOffice\Entity\Basket;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Admin\Entity\Product;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-class BasketController extends \Frontoffice\Controller\AbstractController
+
+class BasketController extends AbstractController
 {
     private Basket $basket;
 
@@ -39,16 +42,16 @@ class BasketController extends \Frontoffice\Controller\AbstractController
     }
 
     /**
-     * @Route("/basket/{id}/add", name="basketAdd", requirements={"page": "\d+"}, methods={"GET","POST"})
+     * @Route("/basket/add/{product}", name="basketAdd")
+     * @IsGranted("ROLE_USER")
      * @param $id
      * @return RedirectResponse
      */
-    public function addBasketAction(int $id)
+    public function addBasketAction($product)
     {
-        dump($id);
         $product = $this->getDoctrine()
             ->getRepository(Product::class)
-            ->find($id);
+            ->find($product);
         
         if (!$product) {
             throw $this->createNotFoundException();
@@ -59,11 +62,9 @@ class BasketController extends \Frontoffice\Controller\AbstractController
         } else {
             $this->addFlash('primary', 'Le produit n\'est plus en stock');
         }
-
-        $slug = $product->getSlug();
-
+        
         return $this->redirectToRoute('productShow', [
-            'slug' => $slug,
+            'slug' => $product->getSlug(),
         ]);
     }
 

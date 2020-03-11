@@ -5,7 +5,9 @@ namespace Admin\Entity;
 
 use Core\Entity\Model\Sluggable;
 use Core\Entity\Traits;
+use Core\Entity\Traits\Id;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use FrontOffice\Entity\PurchaseItem;
 use Symfony\Component\HttpFoundation\File\File;
@@ -15,18 +17,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Product.
  *
+ * @ORM\MappedSuperclass
  * @ORM\Entity
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="Admin\Repository\ProductRepository")
  * @ORM\HasLifecycleCallbacks
  * @Vich\Uploadable
  */
-class Product implements Sluggable
+class Product extends AbstractSluggable
 {
-    use Traits\Id;
-    use Traits\Name;
+    use Id;
     use Traits\DatesAt;
-    use Traits\Slug;
     use Traits\IsActive;
     use Traits\ImageCollection;
     
@@ -93,16 +94,21 @@ class Product implements Sluggable
      * @ORM\Column(type="text")
      */
     private $description;
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $onHome = false;
 
     /**
      * List of categories where the products is
      * (Owning side).
      *
      * @var ProductCategory[]
-     * @ORM\ManyToMany(targetEntity="ProductCategory", inversedBy="products")
+     * @ORM\ManyToMany(targetEntity="ProductCategory", inversedBy="items")
      * @ORM\JoinTable(name="product_categories")
      */
-    private $productCategories;
+    private $category;
     
     /**
      * @ORM\Column(type="integer")
@@ -114,16 +120,10 @@ class Product implements Sluggable
      * @ORM\OneToMany(targetEntity="FrontOffice\Entity\PurchaseItem", mappedBy="product", cascade={"remove"})
      */
     private $purchasedItems;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Admin\Entity\Settings", inversedBy="homeProducts", cascade={"persist", "remove"})
-     */
-    private $settingHome;
     
-
     public function __construct()
     {
-        $this->productCategories = new ArrayCollection();
+        $this->category = new ArrayCollection();
         $this->purchasedItems = new ArrayCollection();
     
         method_exists($this, '_initImages') ? $this->_initImages() : null;
@@ -135,20 +135,20 @@ class Product implements Sluggable
      *
      * @return ProductCategory[]
      */
-    public function getProductCategories()
+    public function getCategory()
     {
-        return $this->productCategories;
+        return $this->category;
     }
     
     /**
      * Set all categories of the product.
      *
-     * @param ProductCategory[] $productCategories
+     * @param ProductCategory[] $category
      */
-    public function setProductCategories(array $productCategories)
+    public function setCategory(array $category)
     {
-        $this->productCategories->clear();
-        $this->productCategories = new ArrayCollection($productCategories);
+        $this->category->clear();
+        $this->category = new ArrayCollection($category);
     }
     
     /**
@@ -157,14 +157,14 @@ class Product implements Sluggable
      *
      * @param $category ProductCategory the category to associate
      */
-    public function addProductCategory($category)
+    public function addCategory($category)
     {
-        if ($this->productCategories->contains($category)) {
+        if ($this->category->contains($category)) {
             return;
         }
 
-        $this->productCategories->add($category);
-        $category->addProduct($this);
+        $this->category->add($category);
+        $category->addItem($this);
     }
 
     /**
@@ -173,14 +173,14 @@ class Product implements Sluggable
      *
      * @param $category ProductCategory the category to associate
      */
-    public function removeProductCategory($category)
+    public function removeCategory($category)
     {
-        if (!$this->productCategories->contains($category)) {
+        if (!$this->category->contains($category)) {
             return;
         }
 
-        $this->productCategories->removeElement($category);
-        $category->removeProduct($this);
+        $this->category->removeElement($category);
+        $category->removeItem($this);
     }
 
     /**
@@ -368,14 +368,14 @@ class Product implements Sluggable
         return $this;
     }
 
-    public function getSettingHome(): ?Settings
+    public function getOnHome(): ?bool
     {
-        return $this->settingHome;
+        return $this->onHome;
     }
 
-    public function setSettingHome(?Settings $settingHome): self
+    public function setOnHome(bool $onHome): self
     {
-        $this->settingHome = $settingHome;
+        $this->onHome = $onHome;
 
         return $this;
     }

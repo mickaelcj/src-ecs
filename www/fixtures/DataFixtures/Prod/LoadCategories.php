@@ -3,6 +3,7 @@
 namespace Fixtures\DataFixtures\Prod;
 
 use Admin\Entity\CmsCategory;
+use Admin\Entity\Nav;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -58,6 +59,16 @@ class LoadCategories extends Fixture implements OrderedFixtureInterface
         
             $this->addReference('cms-subcategory-'.$i, $category);
             $manager->persist($category);
+        }
+    
+        $manager->flush();
+        
+        foreach (range(0,4) as $i) {
+            $nav = new Nav();
+            $nav->setName('category-'.$i);
+            $nav->setPosition($i);
+            $nav->setPage($this->getReference('product-category-'.$i));
+            $manager->persist($nav);
         }
     
         $manager->flush();

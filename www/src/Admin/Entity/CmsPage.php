@@ -5,6 +5,8 @@ namespace Admin\Entity;
 
 use Core\Entity as CoreEn;
 use Core\Entity\Admin;
+use Core\Entity\Model\Sluggable;
+use Core\Entity\Traits\Id;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,20 +15,18 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * CmsPage
- *
- * @ORM\Table(name="cms_page", indexes={@ORM\Index(name="index_cms_page_id", columns={"id","name"})})
+ * @ORM\MappedSuperclass
+ * @ORM\Table(name="cms_page")
  * @ORM\Entity(repositoryClass="Admin\Repository\CmsPageRepository")
  * @ORM\HasLifecycleCallbacks
  * @Vich\Uploadable
- *
  */
-class CmsPage implements CoreEn\Model\Sluggable
+class CmsPage extends AbstractSluggable
 {
-    use CoreEn\Traits\Id;
-    use CoreEn\Traits\Name;
-    use CoreEn\Traits\Slug;
+    use Id;
     use CoreEn\Traits\DatesAt;
     use CoreEn\Traits\IsActive;
+    use CoreEn\Traits\ImageCollection;
     
     /**
      * @ORM\Column(type="text")
@@ -34,8 +34,6 @@ class CmsPage implements CoreEn\Model\Sluggable
     private $body;
     
     /**
-     * @var CoreEn\Admin
-     *
      * @ORM\ManyToOne(targetEntity="Core\Entity\Admin")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="admin_id", referencedColumnName="id")
@@ -73,18 +71,20 @@ class CmsPage implements CoreEn\Model\Sluggable
      * List of categories where the page is
      *
      * @var CmsCategory[]
-     * @ORM\ManyToMany(targetEntity="CmsCategory", inversedBy="cmsPages")
+     * @ORM\ManyToMany(targetEntity="CmsCategory", inversedBy="items")
      * @ORM\JoinTable(name="cms_categories")
      */
-    private $cmsCategories;
+    private $category;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Admin\Entity\Settings", inversedBy="homeCmsPages", cascade={"persist", "remove"})
-     * @ORM\JoinColumns(
-     *     @ORM\JoinColumn(name="setting_id", referencedColumnName="id")
-     * )
+     * @ORM\Column(type="boolean", options={"default": false})
      */
-    private $settingHome;
+    private $onHome = false;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
     
     public function __construct()
     {
@@ -92,7 +92,7 @@ class CmsPage implements CoreEn\Model\Sluggable
             $this->_init();
         }
         
-       $this->cmsCategories = new ArrayCollection();
+       $this->category = new ArrayCollection();
     }
     
     public function getBody(): ?string
@@ -142,38 +142,38 @@ class CmsPage implements CoreEn\Model\Sluggable
         return $this;
     }
 
-    public function getCmsCategories(): Collection
+    public function getCategory(): Collection
     {
-        return $this->cmsCategories;
+        return $this->category;
     }
 
-    public function setCmsCategories(?array $cmsCat)
+    public function setCategory(?array $cmsCat)
     {
         // This is the owning side, we have to call remove and add to have change in the category side too.
-       $this->cmsCategories->clear();
-       $this->cmsCategories = new ArrayCollection($cmsCat);
+       $this->category->clear();
+       $this->category = new ArrayCollection($cmsCat);
         
        return $this;
     }
 
-    public function addCmsCategory(CmsCategory $category)
+    public function addCategory(CmsCategory $category)
     {
-        if ($this->cmsCategories->contains($category)) {
+        if ($this->category->contains($category)) {
             return;
         }
         
-        $this->cmsCategories->add($category);
-        $category->addCmsPage($this);
+        $this->category->add($category);
+        $category->addItem($this);
     }
 
-    public function removeCmsCategory(CmsCategory $category)
+    public function removeCategory(CmsCategory $category)
     {
-        if (!$this->cmsCategories->contains($category)) {
+        if (!$this->category->contains($category)) {
             return;
         }
         
-        $this->cmsCategories->removeElement($category);
-        $category->addCmsPage($this);
+        $this->category->removeElement($category);
+        $category->addItem($this);
     }
     
     public function __toString(): string
@@ -193,14 +193,26 @@ class CmsPage implements CoreEn\Model\Sluggable
         return $this;
     }
 
-    public function getSettingHome(): ?Settings
+    public function getOnHome(): ?bool
     {
-        return $this->settingHome;
+        return $this->onHome;
     }
 
-    public function setSettingHome(?Settings $settingHome): self
+    public function setOnHome(bool $onHome): self
     {
-        $this->settingHome = $settingHome;
+        $this->onHome = $onHome;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

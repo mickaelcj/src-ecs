@@ -24,8 +24,9 @@ class DiyController extends AbstractController
            ->findAllQueryBuilder();
         $adapter = new DoctrineORMAdapter($qb);
         $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(10);
+        $pagerfanta->setMaxPerPage(1 === $page ? 4 : 10);
         $pagerfanta->setCurrentPage($page);
+        dump($pagerfanta->getIterator());
         //TODO : remove
         dump($pagerfanta);
         
@@ -44,10 +45,8 @@ class DiyController extends AbstractController
     
         if (!$diy) {
             $this->addFlash('error','Il n\'y a pas de DIY avec la page '. $slug);
-            $this->redirectToRoute('diyList',[], 302);
+            return $this->redirectToRoute('diyList');
         }
-        dump($diy);
-        
         return $this->render('front_office/cms/diyShow.html.twig', [
            'diy' => $diy
         ]);

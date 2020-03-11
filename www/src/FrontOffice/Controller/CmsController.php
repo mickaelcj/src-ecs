@@ -4,6 +4,7 @@ namespace FrontOffice\Controller;
 
 use Admin\Entity\CmsCategory;
 use Admin\Entity\CmsPage;
+use Pagerfanta\Adapter\DoctrineCollectionAdapter;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -25,7 +26,7 @@ class CmsController extends AbstractController
            ->findOneBySlug($slug);
         
         // TODO: show an article identified by his slug and inject correct data in the template
-        return $this->render('front_office/cms/cmsPagesShow.html.twig', [
+        return $this->render('front_office/cms/cmsPageShow.html.twig', [
            'cmsPage' => $cmsPage,
             'layout' => $cmsPage->getLayout()
         ]);
@@ -43,18 +44,24 @@ class CmsController extends AbstractController
         // TODO: prendre le code de easyadmin pour faire la pagination
         // Pagination de tout
         // En ajax si possible
-        $qb = $this->getDoctrine()
+        $category = $this->getDoctrine()
             ->getRepository(CmsCategory::class)
-            ->findOneBySlug($slug)
-            ->getCmsPages();
-        $adapter = new DoctrineORMAdapter($qb);
+            ->findOneBySlug($slug);
+        
+        $cmsPages = $category->getItems();
+        
+        $adapter = new DoctrineCollectionAdapter($cmsPages);
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(10);
         $pagerfanta->setCurrentPage($page);
+    
+        dump($pagerfanta);
         
         //vue temporaire en attendant pour tester l'ajout au panier
         return $this->render('@fo/cms/cmsPagesList.html.twig', [
-            'products' => $pagerfanta
+            'cmsPages' => $pagerfanta,
+            'category' => $category,
+            'categorySlug' => $slug
         ]);
     }
 }

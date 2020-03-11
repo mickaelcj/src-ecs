@@ -28,6 +28,7 @@ vich_uploader:
     mappings:
         default_images:
             uri_prefix: '%ecs.path.default_images%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
             upload_destination: '%kernel.project_dir%/public/%ecs.path.default_images%'
         product_images:
             uri_prefix: '%ecs.path.product_images%'
@@ -73,7 +74,8 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         resolve_target_entities:
-            Core\Entity\Model\Sluggable: Admin\Entity\AbstractCategory
+           Core\Entity\Model\Sluggable: Admin\Entity\AbstractSluggable
+
         mappings:
             Core:
                 is_bundle: false

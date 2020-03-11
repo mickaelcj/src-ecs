@@ -17,26 +17,15 @@ class CmsPageRepository extends ServiceEntityRepository
     }
     
     use DuplicateSlugTrait;
+    use Common;
     
-    public function findOneBySlug(string $slug): ?CmsPage
+    public function findLatest(int $maxResults): array
     {
         return $this->createQueryBuilder('p')
-           ->where('p.slug = :slug')
-           ->setParameter('slug', $slug)
-           ->getQuery()
-           ->getOneOrNullResult();
-    }
-    
-    public function findAll()
-    {
-        return $this->createQueryBuilder('p')
+           ->select('p')
+           ->orderBy('p.createdAt', 'DESC')
+           ->setMaxResults($maxResults)
            ->getQuery()
            ->getResult();
-    }
-    
-    public function findAllQueryBuilder()
-    {
-        return $this->createQueryBuilder('p')
-           ->getQuery();
     }
 }

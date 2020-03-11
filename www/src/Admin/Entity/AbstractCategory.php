@@ -1,11 +1,12 @@
 <?php
 namespace Admin\Entity;
 
-use Core\Entity\Model\Sluggable;
-use Core\Entity\Traits\Id;
-use Core\Entity\Traits\Name;
-use Core\Entity\Traits\Slug;
+use Core\Entity\Image;
+use Core\Entity\Traits\DatesAt;
+use Core\Entity\Traits\ImageGetters;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class AbstractCategory.
@@ -14,20 +15,34 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
  *     "cms_category" = "CmsCategory",
- *      "product_category" = "ProductCategory"
+ *     "product_category" = "ProductCategory"
  * })
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Admin\Repository\CategoryRepository")
- * @ORM\Table(indexes={@ORM\Index(name="search_idx",
- *     columns={"name"},
- *     options={"where": "(((id IS NOT NULL)"})
- * })
  */
-abstract class AbstractCategory implements Sluggable {
-    use Id;
-    use Name;
-    use Slug;
-
+abstract class AbstractCategory extends AbstractSluggable {
+    
+    /**
+     * It only stores the name of the image associated with the product.
+     *
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     */
+    private $image;
+    
+    /**
+     * This unmapped property stores the binary contents of the image file
+     * associated with the product.
+     *
+     * @Vich\UploadableField(mapping="default_images", fileNameProperty="image")
+     *
+     * @var File
+     */
+    private $imageFile;
+    
+    use ImageGetters;
+    
     /**
      * The description of the product.
      *
@@ -55,11 +70,5 @@ abstract class AbstractCategory implements Sluggable {
     public function getDescription()
     {
         return $this->description;
-    }
-
-
-    public function __toString()
-    {
-        return (string) $this->getName();
     }
 }
