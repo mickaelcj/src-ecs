@@ -5,20 +5,16 @@
 {% endblock %}
 
 {% block main %}
+  <hr class="sep-header">
+  <h1 class="pop-sBold panier_title">Connexion</h1>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 offset-2 app-login">
-        <h1 class="border-bottom">Sign in</h1>
-        {% include '@fo/forms/login-form.html.twig' %}
-        <div class="links text-center">
-          <a href="{{ path('registration') }}">Register new account</a> |
-          <a href="{{ path('passwordReminder') }}">Lost password</a>
-        </div>
-      </div>
-    </div>
+  <section class="formTheme pop">
+    {% include '@fo/forms/login-form.html.twig' %}
+  </section>
+  <div class="login_links text-center pop">
+    <a class="link" href="{{ path('registration') }}">S'inscrire</a>
+    <a class="link" href="{{ path('passwordReminder') }}">Mot de passe perdu</a>
   </div>
-
 {% endblock %}
 
 {% block scripts %}

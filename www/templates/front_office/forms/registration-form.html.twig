@@ -1,72 +1,82 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-<form class="form app-form" novalidate="" autocomplete="off"  action="{{ path('registration') }}" method="POST">
-  {{ form_widget(form._token) }}
-  <div class="form-group row">
-    <div class="col-md-8">
-      <label class="form-label">Nom : </label>
+<div class="formTheme">
+  {{ form_start(form) }}
+  <div class="form_item">
+    {{ form_label(form.name, 'Nom') }}
+    <div class="errorInput">
       {{ form_widget(form.name) }}
       {{ form_errors(form.name) }}
     </div>
   </div>
-  <div class="form-group row">
-    <div class="col-md-8">
-      <label class="form-label">Prenom : </label>
+
+  <div class="form_item">
+    {{ form_label(form.firstName, 'Prénom') }}
+    <div class="errorInput">
       {{ form_widget(form.firstName) }}
       {{ form_errors(form.firstName) }}
     </div>
   </div>
-  <div class="form-group row">
-    <div class="col-md-8">
-      <label class="form-label">Téléphone : </label>
+
+  <div class="form_item">
+    {{ form_label(form.phoneNumber, 'Téléphone') }}
+    <div class="errorInput">
       {{ form_widget(form.phoneNumber) }}
       {{ form_errors(form.phoneNumber) }}
     </div>
   </div>
-  <div class="form-group row">
-    <div class="col-md-8">
-      <label class="form-label">Adresse : </label>
+
+  <div class="form_item">
+    {{ form_label(form.address, 'Adresse') }}
+    <div class="errorInput">
       {{ form_widget(form.address) }}
       {{ form_errors(form.address) }}
     </div>
   </div>
-  <div class="form-group row">
-    <div class="col-md-8">
-      <label class="form-label">Entreprise : </label>
+
+  <div class="form_item">
+    {{ form_label(form.companyName, 'Nom de l\'entreprise') }}
+    <div class="errorInput">
       {{ form_widget(form.companyName) }}
       {{ form_errors(form.companyName) }}
     </div>
   </div>
-  <div class="form-group row">
-    <div class="col-md-8">
-      <label class="form-label">Email : </label>
+
+  <div class="form_item">
+    {{ form_label(form.email, 'E-mail') }}
+    <div class="errorInput">
       {{ form_widget(form.email) }}
       {{ form_errors(form.email) }}
-      <div class="text-muted">
-        <strong>Your email address is your username to sign in.</strong>
-        <br>
-        After the successful registration, we will send an email with a link to activate your account.
-      </div>
     </div>
   </div>
-  </div>
-  <div class="form-group row">
-    <div class="col-md-8">
-      <label class="form-label">Password : </label>
+
+  <div class="form_item">
+    {{ form_label(form.password.first, 'Mot de passe') }}
+    <div class="errorInput">
       {{ form_widget(form.password.first) }}
-      {{ form_widget(form.password.second) }}
       {{ form_errors(form.password.first) }}
-      <div class="invalid-feedback">
-        Passwords mismatch.
-      </div>
-      <div class="text-muted">
-        Password must be at least 8 characters long.
+    </div>
+  </div>
+
+  <div class="form_item">
+    {{ form_label(form.password.second, 'Confirmation du mot de passe') }}
+    <div class="errorInput">
+      {{ form_widget(form.password.second) }}
+      {{ form_errors(form.password.second) }}
+    </div>
+  </div>
+
+  <div class="formCheckbox">
+    <div>
+      {{ form_label(form.news_letter, 'Newsletter') }}
+      <div class="errorInput">
+        {{ form_widget(form.news_letter) }}
+        {{ form_errors(form.news_letter) }}
       </div>
     </div>
   </div>
-  <div class="form-group row">
-    <div class="col-md-8">
-      <button type="submit" class="btn btn-lg btn-success btn-submit">Sign up</button>
-    </div>
+  <div class="center continueSubmit">
+    <button type="submit" class="continue pop">S'inscrire</button>
   </div>
-</form>
+  {{ form_end(form) }}
+</div>
