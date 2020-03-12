@@ -8,7 +8,7 @@ class CompanyController extends AbstractController
 {
     // TODO : Take this his example to build a well organized page
     /**
-     * @Route("/template-manual", name="company")
+     * @Route("/template-manual", name="companyTemplate")
      */
     public function company()
     {
