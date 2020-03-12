@@ -68,6 +68,7 @@ services:
     FrontOffice\Repository\:
         resource: '../src/FrontOffice/Repository/*'
         tags: ['doctrine.repository_service']
+        public: true
 
     Admin\Command\InitSettingsCommand:
         arguments:
