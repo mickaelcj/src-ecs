@@ -20,14 +20,14 @@ class LoadProducts extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         // PRODUCT
-        foreach (range(0, 99) as $i) {
+        foreach (range(0, 29) as $i) {
             $item = new Product();
             $item->setIsActive((rand(1, 1000) % 10) < 7);
             $item->setName($this->getRandomName());
             $item->setDescription($this->getRandomDescription());
             $item->setPrice($this->getRandomPrice());
             $item->setEan($this->getRandomEan());
-            $item->setImage('image'.($i % 10).'.jpg');
+            $item->setImage('image'.rand(0, 3).'.jpg');
             $item->setCategory($this->getRandomCategories());
             $item->setTags($this->getRandomTags());
             $item->setFeatures($this->getRandomFeatures());
@@ -38,7 +38,7 @@ class LoadProducts extends Fixture implements OrderedFixtureInterface
         }
     
         // DIY
-        foreach (range(0, 99) as $i) {
+        foreach (range(0, 29) as $i) {
             $item = new Diy();
             $item->setIsActive((rand(1, 1000) % 10) < 7);
             $item->setName($this->getRandomName());
@@ -46,7 +46,7 @@ class LoadProducts extends Fixture implements OrderedFixtureInterface
             $item->setSummary($this->getRandomDescription());
             $item->setDifficulty(rand(1,4));
             $item->setTime(rand(1,4).'m');
-            $item->setImage('image'.($i % 10).'.jpg');
+            $item->setImage('image-diy-0.png');
         
             $this->addReference('diy-'.$i, $item);
             $manager->persist($item);
@@ -174,14 +174,17 @@ class LoadProducts extends Fixture implements OrderedFixtureInterface
     private function getRandomCategories()
     {
         $categories = array();
-        $numCategories = rand(1, 4);
-        $allCategoryIds = range(1, 100);
+        $numCategories = rand(1, 30);
+        $allCategoryIds = range(1, 30);
         $selectedCategoryIds = array_rand($allCategoryIds, $numCategories);
 
         foreach ((array) $selectedCategoryIds as $categoryId) {
-            $categories[] = $this->getReference('product-subcategory-'.$categoryId);
+            $catType = $categoryId % 2 === true ? 'product-subcategory-' : 'product-category-';
+            $categories[] = $this->getReference($catType.$categoryId);
         }
+    
 
+        
         return $categories;
     }
 }

@@ -15,7 +15,7 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class LoginExtension extends AbstractExtension
+class MenuExtension extends AbstractExtension
 {
     protected $authUtils;
     protected $factory;
@@ -58,12 +58,12 @@ class LoginExtension extends AbstractExtension
         $collectionMenu = $this->navRepo->findby([], ['position' => 'ASC']) ?? [];
         
         if (!$collectionMenu) {
-            return [
+            return [[
                'name' => 'not configured menu',
                'title' => 'configure your menu in /admin',
                'route' => 'homepage',
                'routeParams' => null
-            ];
+            ]];
         }
         
         $navWalked = [];
@@ -99,7 +99,7 @@ class LoginExtension extends AbstractExtension
             
             
         }
-        dump($navWalked);
+        
         return $navWalked;
     }
 }

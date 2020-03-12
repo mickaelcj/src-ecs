@@ -1,6 +1,8 @@
 require('./scss/homepage.scss');
 require('./ts/partials/layout.ts');
+require('./ts/components/slider');
 
+/*
 let slideIndex = 1;
 showSlides(slideIndex);
 
@@ -28,4 +30,4 @@ function showSlides(n : number) {
         slides[i].style.display = "none";
     }
     slides[slideIndex-1].style.display = "flex";
-}
+}*/
